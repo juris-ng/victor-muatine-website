@@ -1,0 +1,33 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+collections:
+  - name: insights
+    label: Insights / Blog
+    folder: _posts
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Category, name: category, widget: select, options: [Family Law, Commercial Law, Criminal Law, Employment Law, Constitutional Law, "Property & Land"] }
+      - { label: Author, name: author, widget: string, default: Victor Muatine }
+      - { label: Read Time, name: readtime, widget: string, hint: "e.g. 5 min" }
+      - { label: Excerpt, name: excerpt, widget: text }
+      - { label: Body, name: body, widget: markdown }
+      - { label: Publish Date, name: date, widget: datetime }
+      - { label: Published, name: published, widget: boolean, default: true }
+
+  - name: team
+    label: Team Members
+    folder: _team
+    create: true
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Role, name: role, widget: string }
+      - { label: Practice Area, name: area, widget: string }
+      - { label: Bio, name: bio, widget: text }
+      - { label: Photo, name: photo, widget: image }

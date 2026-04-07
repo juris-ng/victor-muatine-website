@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Victor Muatine & Co. Advocates — Trusted Legal Expertise. Integrity. Strategy. Results. Dispute resolution, family law, commercial litigation and more across Kenya." />
@@ -500,6 +501,16 @@
 
   <script src="./js/main.js" defer></script>
   <script src="./js/animations.js" defer></script>
-
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 </body>
 </html>
