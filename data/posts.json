@@ -1,0 +1,34 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "Know Your Rights When Arrested in Kenya",
+      "category": "Constitutional Law",
+      "author": "Victor Muatine",
+      "date": "2026-03-28",
+      "readtime": "8 min",
+      "excerpt": "Understanding your constitutional rights when law enforcement detains you is critical. The Constitution of Kenya 2010 provides strong protections every citizen must know.",
+      "published": true
+    },
+    {
+      "id": "2",
+      "title": "Fired Without Cause? Here Is What the Employment Act Says You Are Owed",
+      "category": "Employment Law",
+      "author": "Victor Muatine",
+      "date": "2026-03-24",
+      "readtime": "7 min",
+      "excerpt": "Wrongful dismissal is one of the most common legal complaints in Kenya. Learn what compensation and remedies the Employment Act 2007 entitles you to.",
+      "published": true
+    },
+    {
+      "id": "3",
+      "title": "Before You Buy Land in Kenya: The 7 Due Diligence Steps You Cannot Skip",
+      "category": "Property & Land",
+      "author": "Victor Muatine",
+      "date": "2026-03-15",
+      "readtime": "9 min",
+      "excerpt": "Land fraud is rampant in Kenya. These seven steps will protect you before you part with a single shilling.",
+      "published": false
+    }
+  ]
+}

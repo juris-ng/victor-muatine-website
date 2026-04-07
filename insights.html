@@ -300,6 +300,31 @@
     .article-card__read svg { transition: transform var(--transition-interactive); }
     .article-card__read:hover svg { transform: translateX(3px); }
 
+    /* SKELETON LOADER */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, var(--color-surface) 25%, var(--color-surface-offset, #edeae5) 50%, var(--color-surface) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+      border-radius: var(--radius-xl);
+    }
+    .skeleton-card {
+      height: 320px;
+      border: 1px solid var(--color-border);
+    }
+
+    /* EMPTY / ERROR STATE */
+    .posts-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--color-text-muted);
+    }
+    .posts-empty p { font-size: var(--text-base); max-width: 36ch; margin: 0 auto; }
+
     /* NEWSLETTER */
     .newsletter-section {
       background: var(--color-primary);
@@ -438,9 +463,7 @@
       display: flex; align-items: center; justify-content: center;
       color: var(--color-accent);
     }
-    .yt-card__body {
-      padding: var(--space-5);
-    }
+    .yt-card__body { padding: var(--space-5); }
     .yt-card__title {
       font-size: var(--text-sm);
       font-weight: 600;
@@ -448,13 +471,7 @@
       line-height: 1.45;
       margin-bottom: var(--space-2);
     }
-    .yt-card__meta {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-    }
-
-    /* HIDDEN for filter */
-    .article-card[data-hidden="true"] { display: none; }
+    .yt-card__meta { font-size: var(--text-xs); color: var(--color-text-faint); }
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
@@ -537,56 +554,22 @@
     </section>
 
     <!-- CATEGORY FILTER -->
-    <nav class="cat-filter" aria-label="Filter articles by category">
-      <div class="container cat-filter__inner">
+    <nav class="cat-filter" aria-label="Filter articles by category" id="catFilter">
+      <div class="container cat-filter__inner" id="catFilterInner">
         <button class="cat-btn active" data-cat="all">All Insights</button>
-        <button class="cat-btn" data-cat="family">Family Law</button>
-        <button class="cat-btn" data-cat="commercial">Commercial</button>
-        <button class="cat-btn" data-cat="criminal">Criminal Law</button>
-        <button class="cat-btn" data-cat="employment">Employment</button>
-        <button class="cat-btn" data-cat="constitutional">Constitutional</button>
-        <button class="cat-btn" data-cat="property">Property &amp; Land</button>
+        <!-- categories injected dynamically -->
       </div>
     </nav>
 
-
     <!-- FEATURED ARTICLE -->
-    <section class="featured-section" aria-label="Featured article">
+    <section class="featured-section" aria-label="Featured article" id="featuredSection">
       <div class="container">
         <span class="section-label">Featured</span>
-        <div class="featured-article">
-          <div class="featured-article__img-wrap">
-            <img
-              src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=900&q=80"
-              alt="Understanding your rights in a Kenyan courtroom"
-              width="900" height="600"
-              loading="eager"
-              class="featured-article__img"
-            />
-          </div>
-          <div class="featured-article__content">
-            <span class="featured-article__cat">Constitutional Law</span>
-            <h2 class="featured-article__title">
-              <a href="#">Know Your Rights: What the Constitution Guarantees You When Arrested in Kenya</a>
-            </h2>
-            <p class="featured-article__excerpt">Most Kenyans do not know that Article 49 of the Constitution gives you the right to be informed of the reason for your arrest, to remain silent, to communicate with an advocate, and to be brought before a court within 24 hours. Victor Muatine breaks this down in plain language.</p>
-            <div class="featured-article__meta">
-              <span>
-                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-                8 min read
-              </span>
-              <span>March 28, 2026</span>
-              <span>Victor Muatine</span>
-            </div>
-            <a href="#" class="featured-article__read-more">
-              Read the full article
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
+        <div class="featured-article" id="featuredArticle">
+          <!-- injected dynamically -->
         </div>
       </div>
     </section>
-
 
     <!-- ARTICLES GRID -->
     <section class="articles-section" aria-label="All articles">
@@ -596,153 +579,16 @@
             <span class="section-label">All Articles</span>
             <h2>Latest Insights</h2>
           </div>
-          <span class="article-count" id="articleCount">Showing 6 articles</span>
+          <span class="article-count" id="articleCount">Loading…</span>
         </div>
-
         <div class="articles-grid" id="articlesGrid">
-
-          <!-- Article 1 -->
-          <article class="article-card" data-cat="family">
-            <div class="article-card__img-wrap">
-              <img src="https://images.unsplash.com/photo-1521791055366-0d553872952f?w=600&q=75" alt="Family law in Kenya — divorce process" width="600" height="338" loading="lazy" class="article-card__img" />
-            </div>
-            <div class="article-card__body">
-              <span class="article-card__cat">Family Law</span>
-              <h3 class="article-card__title"><a href="#">How Long Does a Divorce Actually Take in Kenya? A Step-by-Step Guide</a></h3>
-              <p class="article-card__excerpt">From filing the petition to receiving your decree absolute — the Kenyan divorce process explained clearly, including what can speed it up or slow it down.</p>
-            </div>
-            <div class="article-card__footer">
-              <div class="article-card__meta">
-                <span>Apr 2, 2026</span>
-                <span>·</span>
-                <span>6 min</span>
-              </div>
-              <a href="#" class="article-card__read">
-                Read
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Article 2 -->
-          <article class="article-card" data-cat="employment">
-            <div class="article-card__img-wrap">
-              <img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=600&q=75" alt="Employment law Kenya — unfair dismissal" width="600" height="338" loading="lazy" class="article-card__img" />
-            </div>
-            <div class="article-card__body">
-              <span class="article-card__cat">Employment Law</span>
-              <h3 class="article-card__title"><a href="#">Fired Without Cause? Here Is What the Employment Act Says You Are Owed</a></h3>
-              <p class="article-card__excerpt">Kenya's Employment Act 2007 is robust. Yet thousands of workers are dismissed unlawfully every year without receiving what they are legally entitled to. We explain your entitlements clearly.</p>
-            </div>
-            <div class="article-card__footer">
-              <div class="article-card__meta">
-                <span>Mar 24, 2026</span>
-                <span>·</span>
-                <span>7 min</span>
-              </div>
-              <a href="#" class="article-card__read">
-                Read
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Article 3 -->
-          <article class="article-card" data-cat="property">
-            <div class="article-card__img-wrap">
-              <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75" alt="Land buying process in Kenya" width="600" height="338" loading="lazy" class="article-card__img" />
-            </div>
-            <div class="article-card__body">
-              <span class="article-card__cat">Property &amp; Land</span>
-              <h3 class="article-card__title"><a href="#">Before You Buy Land in Kenya: The 7 Due Diligence Steps You Cannot Skip</a></h3>
-              <p class="article-card__excerpt">Land fraud is rampant in Kenya. These seven steps — from official search to mutation inspection — will protect you from buying property you can never build on.</p>
-            </div>
-            <div class="article-card__footer">
-              <div class="article-card__meta">
-                <span>Mar 15, 2026</span>
-                <span>·</span>
-                <span>9 min</span>
-              </div>
-              <a href="#" class="article-card__read">
-                Read
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Article 4 -->
-          <article class="article-card" data-cat="criminal">
-            <div class="article-card__img-wrap">
-              <img src="https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&q=75" alt="Criminal law Kenya — bail process" width="600" height="338" loading="lazy" class="article-card__img" />
-            </div>
-            <div class="article-card__body">
-              <span class="article-card__cat">Criminal Law</span>
-              <h3 class="article-card__title"><a href="#">Bail in Kenya: How It Works, Who Gets It, and Why You Need a Lawyer From the First Hearing</a></h3>
-              <p class="article-card__excerpt">Many Kenyans sit in remand custody for months not because they cannot access bail, but because they did not have representation at the crucial first hearing. This guide changes that.</p>
-            </div>
-            <div class="article-card__footer">
-              <div class="article-card__meta">
-                <span>Mar 8, 2026</span>
-                <span>·</span>
-                <span>5 min</span>
-              </div>
-              <a href="#" class="article-card__read">
-                Read
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Article 5 -->
-          <article class="article-card" data-cat="commercial">
-            <div class="article-card__img-wrap">
-              <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=75" alt="Business contracts in Kenya" width="600" height="338" loading="lazy" class="article-card__img" />
-            </div>
-            <div class="article-card__body">
-              <span class="article-card__cat">Commercial Law</span>
-              <h3 class="article-card__title"><a href="#">Why a Handshake Deal Is Not Enough: Protecting Your Business With Proper Contracts</a></h3>
-              <p class="article-card__excerpt">Oral agreements are enforceable in Kenya — but proving them in court is a nightmare. Here is why every business transaction needs a written contract and what must be in it.</p>
-            </div>
-            <div class="article-card__footer">
-              <div class="article-card__meta">
-                <span>Feb 28, 2026</span>
-                <span>·</span>
-                <span>6 min</span>
-              </div>
-              <a href="#" class="article-card__read">
-                Read
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Article 6 -->
-          <article class="article-card" data-cat="constitutional">
-            <div class="article-card__img-wrap">
-              <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=75" alt="Kenya constitution and rights" width="600" height="338" loading="lazy" class="article-card__img" />
-            </div>
-            <div class="article-card__body">
-              <span class="article-card__cat">Constitutional Law</span>
-              <h3 class="article-card__title"><a href="#">Article 47 Explained: Your Right to Fair Administrative Action and How to Enforce It</a></h3>
-              <p class="article-card__excerpt">Government agencies make decisions that affect your life every day. Article 47 gives you the right to challenge those decisions — but most Kenyans do not know it exists.</p>
-            </div>
-            <div class="article-card__footer">
-              <div class="article-card__meta">
-                <span>Feb 14, 2026</span>
-                <span>·</span>
-                <span>8 min</span>
-              </div>
-              <a href="#" class="article-card__read">
-                Read
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-            </div>
-          </article>
-
+          <!-- skeleton while loading -->
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
         </div>
       </div>
     </section>
-
 
     <!-- YOUTUBE SECTION -->
     <section class="youtube-section" aria-label="Video content from publaw">
@@ -801,7 +647,6 @@
       </div>
     </section>
 
-
     <!-- NEWSLETTER -->
     <section class="newsletter-section" aria-label="Subscribe to legal insights">
       <div class="container">
@@ -834,7 +679,6 @@
     </section>
 
   </main>
-
 
   <!-- FOOTER -->
   <footer class="footer" aria-label="Site footer">
@@ -910,29 +754,171 @@
   </footer>
 
   <script src="./js/main.js" defer></script>
+
   <script>
-    // Category filter
-    const catBtns = document.querySelectorAll('.cat-btn');
-    const articleCards = document.querySelectorAll('.article-card');
-    const articleCount = document.getElementById('articleCount');
+    // ─── IMAGE MAP by category (used for cards without a custom image) ───
+    const CAT_IMAGES = {
+      'Family Law':        'https://images.unsplash.com/photo-1521791055366-0d553872952f?w=600&q=75',
+      'Employment Law':    'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=600&q=75',
+      'Property & Land':   'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75',
+      'Criminal Law':      'https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&q=75',
+      'Commercial Law':    'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=75',
+      'Constitutional Law':'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=75',
+    };
+    const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=75';
 
-    catBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const cat = btn.dataset.cat;
-        catBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    // ─── SLUG helper for category filter ───
+    function toSlug(str) {
+      return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
 
-        let visible = 0;
-        articleCards.forEach(card => {
-          const show = cat === 'all' || card.dataset.cat === cat;
-          card.style.display = show ? '' : 'none';
-          if (show) visible++;
-        });
-        articleCount.textContent = `Showing ${visible} article${visible !== 1 ? 's' : ''}`;
+    // ─── FORMAT date ───
+    function fmtDate(iso) {
+      return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    // ─── RENDER FEATURED ───
+    function renderFeatured(post) {
+      const img = post.image || CAT_IMAGES[post.category] || DEFAULT_IMAGE;
+      const section = document.getElementById('featuredSection');
+      const wrap = document.getElementById('featuredArticle');
+      if (!post) { section.style.display = 'none'; return; }
+      wrap.innerHTML = `
+        <div class="featured-article__img-wrap">
+          <img src="${img}" alt="${post.title}" width="900" height="600" loading="eager" class="featured-article__img" />
+        </div>
+        <div class="featured-article__content">
+          <span class="featured-article__cat">${post.category}</span>
+          <h2 class="featured-article__title">
+            <a href="#">${post.title}</a>
+          </h2>
+          <p class="featured-article__excerpt">${post.excerpt}</p>
+          <div class="featured-article__meta">
+            <span>
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              ${post.readtime}
+            </span>
+            <span>${fmtDate(post.date)}</span>
+            <span>${post.author}</span>
+          </div>
+          <a href="#" class="featured-article__read-more">
+            Read the full article
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>`;
+    }
+
+    // ─── RENDER GRID CARDS ───
+    function renderGrid(posts, activeCat) {
+      const grid = document.getElementById('articlesGrid');
+      const countEl = document.getElementById('articleCount');
+
+      const filtered = activeCat === 'all'
+        ? posts
+        : posts.filter(p => toSlug(p.category) === activeCat);
+
+      countEl.textContent = `Showing ${filtered.length} article${filtered.length !== 1 ? 's' : ''}`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="posts-empty"><p>No articles in this category yet. Check back soon.</p></div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(post => {
+        const img = post.image || CAT_IMAGES[post.category] || DEFAULT_IMAGE;
+        const slug = toSlug(post.category);
+        return `
+          <article class="article-card" data-cat="${slug}">
+            <div class="article-card__img-wrap">
+              <img src="${img}" alt="${post.title}" width="600" height="338" loading="lazy" class="article-card__img" />
+            </div>
+            <div class="article-card__body">
+              <span class="article-card__cat">${post.category}</span>
+              <h3 class="article-card__title"><a href="#">${post.title}</a></h3>
+              <p class="article-card__excerpt">${post.excerpt}</p>
+            </div>
+            <div class="article-card__footer">
+              <div class="article-card__meta">
+                <span>${fmtDate(post.date)}</span>
+                <span>·</span>
+                <span>${post.readtime}</span>
+              </div>
+              <a href="#" class="article-card__read">
+                Read
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>`;
+      }).join('');
+    }
+
+    // ─── BUILD CATEGORY FILTER from actual post data ───
+    function buildCategoryFilter(posts) {
+      const cats = [...new Set(posts.map(p => p.category))];
+      const inner = document.getElementById('catFilterInner');
+      cats.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'cat-btn';
+        btn.dataset.cat = toSlug(cat);
+        btn.textContent = cat;
+        inner.appendChild(btn);
       });
-    });
+    }
 
-    // Newsletter
+    // ─── CATEGORY FILTER EVENTS ───
+    function initCatFilter(posts) {
+      const inner = document.getElementById('catFilterInner');
+      inner.addEventListener('click', e => {
+        const btn = e.target.closest('.cat-btn');
+        if (!btn) return;
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderGrid(posts, btn.dataset.cat);
+      });
+    }
+
+    // ─── MAIN LOAD ───
+    async function loadInsights() {
+      const grid = document.getElementById('articlesGrid');
+      const featuredSection = document.getElementById('featuredSection');
+
+      try {
+        const res = await fetch('./data/posts.json');
+        if (!res.ok) throw new Error('Failed to load');
+        const data = await res.json();
+
+        // Only published posts, sorted newest first
+        const posts = (data.posts || [])
+          .filter(p => p.published)
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        if (posts.length === 0) {
+          featuredSection.style.display = 'none';
+          grid.innerHTML = `<div class="posts-empty"><p>No articles published yet. Check back soon.</p></div>`;
+          document.getElementById('articleCount').textContent = '0 articles';
+          return;
+        }
+
+        // Featured = newest published post
+        renderFeatured(posts[0]);
+
+        // Grid = all posts except featured
+        const gridPosts = posts.slice(1);
+        buildCategoryFilter(gridPosts);
+        initCatFilter(gridPosts);
+        renderGrid(gridPosts, 'all');
+
+      } catch (err) {
+        console.error(err);
+        featuredSection.style.display = 'none';
+        grid.innerHTML = `<div class="posts-empty" style="color:var(--color-error,#d16363);"><p>Could not load articles. Please check back later.</p></div>`;
+        document.getElementById('articleCount').textContent = '';
+      }
+    }
+
+    loadInsights();
+
+    // ─── NEWSLETTER ───
     const nlForm = document.getElementById('newsletterForm');
     const nlMessage = document.getElementById('nlMessage');
     nlForm.addEventListener('submit', e => {

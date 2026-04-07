@@ -1,0 +1,39 @@
+{
+  "team": [
+    {
+      "name": "Victor Muatine",
+      "role": "Founding Partner",
+      "area": "All Practice Areas",
+      "bio": "Victor is the founding partner of Victor Muatine & Co. Advocates with over a decade of experience in litigation, commercial law, and constitutional matters.",
+      "photo": ""
+    },
+    {
+      "name": "Amina Odhiambo",
+      "role": "Senior Associate",
+      "area": "Family & Child Law",
+      "bio": "Amina specialises in family law including divorce, custody, adoption, and child maintenance matters.",
+      "photo": ""
+    },
+    {
+      "name": "Brian Kamau",
+      "role": "Associate",
+      "area": "Commercial & Disputes",
+      "bio": "Brian handles commercial litigation, contract disputes, and debt recovery matters for corporate and individual clients.",
+      "photo": ""
+    },
+    {
+      "name": "Grace Wanjiru",
+      "role": "Associate",
+      "area": "Criminal Defence",
+      "bio": "Grace represents clients in criminal matters ranging from traffic offences to serious felonies in the High Court.",
+      "photo": ""
+    },
+    {
+      "name": "David Mutua",
+      "role": "Associate",
+      "area": "Corporate & Employment",
+      "bio": "David advises companies on employment law compliance, contracts, and corporate governance.",
+      "photo": ""
+    }
+  ]
+}
