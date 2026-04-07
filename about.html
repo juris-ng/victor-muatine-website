@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Victor Muatine — Advocate of the High Court of Kenya. LLB University of Nairobi, Kenya School of Law. Passionate courtroom advocate." />
+  <title>About Victor | Victor Muatine & Co. Advocates</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./css/tokens.css" />
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <style>
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--color-primary);
+      padding-top: calc(68px + clamp(var(--space-16), 8vw, var(--space-24)));
+      padding-bottom: clamp(var(--space-16), 8vw, var(--space-24));
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, transparent, var(--color-accent), transparent);
+    }
+    .page-hero__eyebrow {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-4);
+    }
+    .page-hero__title {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: var(--space-4);
+    }
+    .page-hero__title em { font-style: italic; color: var(--color-accent); }
+    .page-hero__sub {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.6);
+      max-width: 52ch;
+      line-height: 1.7;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.4);
+      margin-bottom: var(--space-8);
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.4); }
+    .breadcrumb a:hover { color: var(--color-accent); }
+    .breadcrumb span { color: rgba(255,255,255,0.25); }
+
+    /* ── ABOUT MAIN SECTION ── */
+    .about-main {
+      padding-block: clamp(var(--space-16), 8vw, var(--space-24));
+      background: var(--color-bg);
+    }
+    .about-main__grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+    .about-main__sticky {
+      position: sticky;
+      top: calc(68px + var(--space-8));
+    }
+    .about-main__photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: var(--space-6);
+    }
+    .about-main__socials {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .about-main__social-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      padding: var(--space-2) var(--space-4);
+      text-transform: uppercase;
+    }
+    .about-main__social-link:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    /* ── CONTENT BODY ── */
+    .about-body { display: flex; flex-direction: column; gap: var(--space-10); }
+    .about-body__block h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 400;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: 2px solid var(--color-accent);
+      display: inline-block;
+    }
+    .about-body__block p {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      line-height: 1.85;
+      margin-bottom: var(--space-4);
+    }
+    .about-body__block p:last-child { margin-bottom: 0; }
+
+    /* ── CREDENTIALS GRID ── */
+    .credentials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      margin-top: var(--space-2);
+    }
+    .credential-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .credential-card__icon {
+      width: 36px; height: 36px;
+      background: rgba(201,149,42,0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+    .credential-card__title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    .credential-card__detail {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+    }
+
+    /* ── VALUES ── */
+    .values-section {
+      padding-block: clamp(var(--space-16), 7vw, var(--space-20));
+      background: var(--color-primary);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-10);
+    }
+    .value-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+    }
+    .value-card__number {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      color: var(--color-accent);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: var(--space-4);
+    }
+    .value-card h3 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: var(--space-3);
+    }
+    .value-card p {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+    }
+
+    /* ── CTA ── */
+    .about-cta {
+      padding-block: clamp(var(--space-16), 7vw, var(--space-20));
+      background: var(--color-surface);
+      text-align: center;
+    }
+    .about-cta h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 400;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+    }
+    .about-cta p {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      max-width: 44ch;
+      margin-inline: auto;
+      margin-bottom: var(--space-8);
+      line-height: 1.7;
+    }
+    .about-cta__buttons {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-main__grid { grid-template-columns: 1fr; }
+      .about-main__sticky { position: static; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .credentials-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="sr-only skip-link">Skip to main content</a>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo" aria-label="Victor Muatine & Co. Advocates Home">
+        <svg width="160" height="38" viewBox="0 0 160 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="8" r="2" fill="#c9952a"/>
+          <line x1="18" y1="10" x2="18" y2="30" stroke="#c9952a" stroke-width="1.5"/>
+          <line x1="10" y1="13" x2="26" y2="13" stroke="#c9952a" stroke-width="1.5"/>
+          <path d="M10 13 L7 20 Q10 24 13 20 L10 13Z" stroke="#c9952a" stroke-width="1.2" fill="none"/>
+          <path d="M26 13 L23 20 Q26 24 29 20 L26 13Z" stroke="#c9952a" stroke-width="1.2" fill="none"/>
+          <line x1="13" y1="30" x2="23" y2="30" stroke="#c9952a" stroke-width="1.5"/>
+          <text x="36" y="16" font-family="'Instrument Serif', Georgia, serif" font-size="12" fill="currentColor">Victor Muatine</text>
+          <text x="36" y="30" font-family="'General Sans', Inter, sans-serif" font-size="8" fill="#c9952a" font-weight="600" letter-spacing="0.1em">&amp; CO. ADVOCATES</text>
+        </svg>
+      </a>
+      <nav class="navbar__links" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html" style="color:var(--color-accent);">About</a>
+        <a href="practice-areas.html">Practice Areas</a>
+        <a href="team.html">Our Team</a>
+        <a href="insights.html">Insights</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="navbar__actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <a href="contact.html" class="btn btn-accent">Book Consultation</a>
+        <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="practice-areas.html">Practice Areas</a>
+    <a href="team.html">Our Team</a>
+    <a href="insights.html">Insights</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-accent" style="margin-top:var(--space-6);text-align:center;justify-content:center;">Book Consultation</a>
+  </nav>
+
+  <main id="main">
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span>›</span>
+          <span style="color:rgba(255,255,255,0.6);">About</span>
+        </nav>
+        <p class="page-hero__eyebrow">The Advocate</p>
+        <h1 class="page-hero__title">More Than<br /><em>An Advocate</em></h1>
+        <p class="page-hero__sub">Bold, passionate, and principled — Victor Muatine brings fearless courtroom energy to every client matter across Kenya.</p>
+      </div>
+    </section>
+
+
+    <!-- MAIN BIO -->
+    <section class="about-main">
+      <div class="container">
+        <div class="about-main__grid">
+
+          <!-- Sticky left column -->
+          <div class="about-main__sticky">
+            <img
+              src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=700&q=80"
+              alt="Victor Muatine — Advocate of the High Court of Kenya"
+              width="700" height="933"
+              loading="eager"
+              class="about-main__photo"
+            />
+            <div class="about-main__socials">
+              <a href="https://x.com/MuatineLegal" target="_blank" rel="noopener noreferrer" class="about-main__social-link">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.265 5.638zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                @MuatineLegal
+              </a>
+              <a href="https://www.instagram.com/publ_aw/" target="_blank" rel="noopener noreferrer" class="about-main__social-link">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="20" rx="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                </svg>
+                @publ_aw
+              </a>
+              <a href="https://www.youtube.com/@publaw" target="_blank" rel="noopener noreferrer" class="about-main__social-link">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+                  <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/>
+                </svg>
+                @publaw
+              </a>
+            </div>
+          </div>
+
+          <!-- Right content -->
+          <div class="about-body">
+
+            <div class="about-body__block">
+              <h2>The Story</h2>
+              <p>Victor Muatine is an Advocate of the High Court of Kenya whose name has become synonymous with bold, fearless advocacy. From early in his career, Victor distinguished himself not just as a competent lawyer, but as a passionate voice for clients who needed someone to fight unapologetically in their corner.</p>
+              <p>Armed with a Bachelor of Laws (LLB) from the University of Nairobi — one of Kenya's most competitive law programmes — and a Postgraduate Diploma from the Kenya School of Law, Victor was called to the bar with a clear purpose: to use the law as a tool for justice, not just procedure.</p>
+              <p>His public profile grew significantly when a video of him passionately arguing a paternity case at Kisumu Children's Court went viral — capturing the attention of Kenyans who recognised in him an advocate who genuinely cares about outcomes. That authenticity is not performance. It is who Victor Muatine is, in every court, in every matter, for every client.</p>
+            </div>
+
+            <div class="about-body__block">
+              <h2>Philosophy</h2>
+              <p>Victor founded Victor Muatine &amp; Co. Advocates on three non-negotiable pillars: <strong>Integrity</strong> in every engagement, <strong>Strategy</strong> in every argument, and <strong>Results</strong> for every client. The firm does not measure success by the number of cases filed — it measures it by outcomes delivered.</p>
+              <p>He believes deeply that access to quality legal representation should not be a privilege of the wealthy. Every person — regardless of background — deserves an advocate who will stand and fight. This conviction shapes how the firm engages with every prospective client from the very first consultation.</p>
+            </div>
+
+            <div class="about-body__block">
+              <h2>Qualifications &amp; Credentials</h2>
+              <div class="credentials-grid">
+                <div class="credential-card">
+                  <div class="credential-card__icon">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                      <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                  </div>
+                  <div class="credential-card__title">Bachelor of Laws (LLB)</div>
+                  <div class="credential-card__detail">University of Nairobi</div>
+                </div>
+                <div class="credential-card">
+                  <div class="credential-card__icon">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                    </svg>
+                  </div>
+                  <div class="credential-card__title">Postgraduate Diploma</div>
+                  <div class="credential-card__detail">Kenya School of Law</div>
+                </div>
+                <div class="credential-card">
+                  <div class="credential-card__icon">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                  </div>
+                  <div class="credential-card__title">Advocate of the High Court</div>
+                  <div class="credential-card__detail">Republic of Kenya</div>
+                </div>
+                <div class="credential-card">
+                  <div class="credential-card__icon">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M12 8v4l3 3"/>
+                    </svg>
+                  </div>
+                  <div class="credential-card__title">Member, Law Society of Kenya</div>
+                  <div class="credential-card__detail">Active practising certificate</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-body__block">
+              <h2>Beyond the Courtroom</h2>
+              <p>Victor runs a YouTube channel (@publaw) and Instagram (@publ_aw) dedicated to legal education — breaking down complex Kenyan law into accessible content for ordinary citizens. He is a firm believer that an informed public makes for a more just society, and that lawyers have a duty to share knowledge beyond the courtroom walls.</p>
+              <p>Known online simply as "Professor Muatine," his content reaches thousands of Kenyans who would otherwise have no practical access to legal guidance. This commitment to public legal education is as central to his identity as his work in court.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- VALUES -->
+    <section class="values-section" aria-label="Firm values">
+      <div class="container">
+        <span class="section-label">What Drives Us</span>
+        <h2 class="section-heading" style="color:#fff;">The Three Pillars</h2>
+        <div class="values-grid">
+          <div class="value-card">
+            <div class="value-card__number">01</div>
+            <h3>Integrity</h3>
+            <p>Every engagement — from the first phone call to the final judgment — is conducted with absolute honesty. We will never tell you what you want to hear at the expense of what you need to know.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-card__number">02</div>
+            <h3>Strategy</h3>
+            <p>Passion without strategy is noise. We combine fierce advocacy with meticulous case preparation, deep legal research, and a deliberate approach to every argument we make on your behalf.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-card__number">03</div>
+            <h3>Results</h3>
+            <p>We are outcome-obsessed. Not just process. Not just appearances. Real, measurable results — whether that is a court order, a negotiated settlement, or a fully vindicated client.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CTA -->
+    <section class="about-cta">
+      <span class="section-label">Work With Us</span>
+      <h2>Ready to Get Started?</h2>
+      <p>Book a confidential consultation with Victor Muatine today. The first step to resolving your legal matter is a conversation.</p>
+      <div class="about-cta__buttons">
+        <a href="contact.html" class="btn btn-accent">Book a Consultation</a>
+        <a href="practice-areas.html" class="btn btn-ghost">View Practice Areas →</a>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <svg width="160" height="38" viewBox="0 0 160 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="8" r="2" fill="#c9952a"/>
+            <line x1="18" y1="10" x2="18" y2="30" stroke="#c9952a" stroke-width="1.5"/>
+            <line x1="10" y1="13" x2="26" y2="13" stroke="#c9952a" stroke-width="1.5"/>
+            <path d="M10 13 L7 20 Q10 24 13 20 L10 13Z" stroke="#c9952a" stroke-width="1.2" fill="none"/>
+            <path d="M26 13 L23 20 Q26 24 29 20 L26 13Z" stroke="#c9952a" stroke-width="1.2" fill="none"/>
+            <line x1="13" y1="30" x2="23" y2="30" stroke="#c9952a" stroke-width="1.5"/>
+            <text x="36" y="16" font-family="'Instrument Serif', Georgia, serif" font-size="12" fill="white">Victor Muatine</text>
+            <text x="36" y="30" font-family="'General Sans', Inter, sans-serif" font-size="8" fill="#c9952a" font-weight="600" letter-spacing="0.1em">&amp; CO. ADVOCATES</text>
+          </svg>
+          <p>Trusted legal expertise across Kenya — dispute resolution, family law, commercial litigation, construction, and more.</p>
+          <div class="footer__tagline">⚖ Integrity · Strategy · Results</div>
+        </div>
+        <div class="footer__col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Victor</a></li>
+            <li><a href="practice-areas.html">Practice Areas</a></li>
+            <li><a href="team.html">Our Team</a></li>
+            <li><a href="insights.html">Insights</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Practice Areas</h4>
+          <ul>
+            <li><a href="practice-areas.html#dispute">Dispute Resolution</a></li>
+            <li><a href="practice-areas.html#family">Family Law</a></li>
+            <li><a href="practice-areas.html#commercial">Commercial Law</a></li>
+            <li><a href="practice-areas.html#construction">Construction</a></li>
+            <li><a href="practice-areas.html#criminal">Criminal Defence</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Nairobi &amp; Kitui, Kenya</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.3 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+254 700 000 000</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@victormuatine.co.ke</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Victor Muatine &amp; Co. Advocates. All rights reserved. | Regulated by the Law Society of Kenya.</p>
+        <div class="footer__socials">
+          <a href="https://x.com/MuatineLegal" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.265 5.638zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/publ_aw/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@publaw" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/main.js" defer></script>
+</body>
+</html>

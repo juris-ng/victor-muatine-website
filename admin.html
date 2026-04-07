@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Victor Muatine & Co. Advocates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'General Sans', 'Inter', sans-serif;
+      --accent: #d4a843;
+      --accent-hover: #e0bb62;
+      --bg: #0d1117;
+      --surface: #13191f;
+      --surface-2: #181f27;
+      --surface-3: #1c242e;
+      --border: #2e3a48;
+      --text: #e8e4de;
+      --text-muted: #8a9aaa;
+      --text-faint: #4a5a6a;
+      --success: #6daa45;
+      --error: #d16363;
+      --warning: #d4a843;
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --radius-full: 9999px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.4);
+      --transition: 180ms cubic-bezier(0.16,1,0.3,1);
+    }
+    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      line-height: 1.6;
+    }
+    button { cursor: pointer; font: inherit; border: none; background: none; }
+    input, textarea, select { font: inherit; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── LOGIN SCREEN ── */
+    #loginScreen {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      padding: 1.5rem;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+    }
+    .login-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .login-logo-icon {
+      width: 40px; height: 40px;
+      background: rgba(212,168,67,0.12);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      font-size: 1.25rem;
+    }
+    .login-logo-text { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+    .login-card h1 { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .login-card p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.375rem; margin-bottom: 1rem; }
+    .form-group label { font-size: 0.8125rem; font-weight: 600; color: var(--text-muted); }
+    .form-control {
+      padding: 0.625rem 0.875rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text);
+      font-size: 0.9375rem;
+      outline: none;
+      transition: border-color var(--transition);
+      width: 100%;
+    }
+    .form-control:focus { border-color: var(--accent); }
+    .form-control::placeholder { color: var(--text-faint); }
+    .btn-primary {
+      width: 100%;
+      padding: 0.75rem 1.5rem;
+      background: var(--accent);
+      color: #0d1117;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      border-radius: var(--radius-md);
+      margin-top: 0.5rem;
+      transition: background var(--transition);
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .login-error {
+      font-size: 0.8125rem;
+      color: var(--error);
+      margin-top: 0.75rem;
+      text-align: center;
+      min-height: 1.2em;
+    }
+    .login-hint {
+      font-size: 0.75rem;
+      color: var(--text-faint);
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    /* ── ADMIN SHELL ── */
+    #adminShell { display: none; min-height: 100dvh; }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      left: 0; top: 0; bottom: 0;
+      width: 240px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform var(--transition);
+    }
+    .sidebar-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .sidebar-logo-icon {
+      width: 32px; height: 32px;
+      background: rgba(212,168,67,0.12);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .sidebar-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); line-height: 1.3; }
+    .sidebar-title span { display: block; color: var(--accent); }
+
+    .sidebar-nav { flex: 1; padding: 1rem 0.75rem; display: flex; flex-direction: column; gap: 0.25rem; overflow-y: auto; }
+    .nav-section-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); padding: 0.75rem 0.75rem 0.25rem; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.5625rem 0.75rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+      user-select: none;
+    }
+    .nav-item:hover { background: var(--surface-2); color: var(--text); }
+    .nav-item.active { background: rgba(212,168,67,0.1); color: var(--accent); }
+    .nav-item svg { flex-shrink: 0; opacity: 0.7; }
+    .nav-item.active svg { opacity: 1; }
+    .nav-badge {
+      margin-left: auto;
+      background: var(--accent);
+      color: #0d1117;
+      font-size: 0.625rem;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: var(--radius-full);
+    }
+
+    .sidebar-footer {
+      padding: 1rem 0.75rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .sidebar-footer .nav-item { color: var(--text-muted); }
+
+    /* MAIN CONTENT */
+    .admin-main {
+      margin-left: 240px;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 0.75rem; }
+    .topbar-title { font-size: 1rem; font-weight: 600; color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 0.75rem; }
+    .topbar-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.4375rem 0.875rem;
+      font-size: 0.8125rem; font-weight: 600;
+      border-radius: var(--radius-md);
+      transition: background var(--transition), color var(--transition);
+    }
+    .topbar-btn-ghost { color: var(--text-muted); border: 1px solid var(--border); }
+    .topbar-btn-ghost:hover { background: var(--surface-2); color: var(--text); }
+    .topbar-btn-accent { background: var(--accent); color: #0d1117; }
+    .topbar-btn-accent:hover { background: var(--accent-hover); }
+    .avatar {
+      width: 32px; height: 32px;
+      background: rgba(212,168,67,0.2);
+      border-radius: var(--radius-full);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800; color: var(--accent);
+    }
+
+    /* PAGES */
+    .admin-page { display: none; padding: 1.5rem; flex: 1; }
+    .admin-page.active { display: block; }
+
+    /* ── DASHBOARD ── */
+    .page-heading { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; margin-bottom: 0.375rem; }
+    .page-subheading { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .stat-card__label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); }
+    .stat-card__value { font-family: var(--font-display); font-size: 2rem; font-weight: 400; color: var(--text); line-height: 1; }
+    .stat-card__change { font-size: 0.75rem; color: var(--success); font-weight: 600; }
+    .stat-card__change.down { color: var(--error); }
+    .stat-card__icon {
+      width: 36px; height: 36px;
+      background: rgba(212,168,67,0.08);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .dash-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .dash-card__header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dash-card__title { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+    .dash-card__action { font-size: 0.75rem; font-weight: 600; color: var(--accent); cursor: pointer; }
+    .dash-card__action:hover { text-decoration: underline; }
+    .dash-card__body { padding: 0; }
+
+    .enquiry-row {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .enquiry-row:last-child { border-bottom: none; }
+    .enquiry-row:hover { background: var(--surface-2); }
+    .enquiry-avatar {
+      width: 32px; height: 32px;
+      background: rgba(212,168,67,0.12);
+      border-radius: var(--radius-full);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6875rem; font-weight: 800; color: var(--accent);
+      flex-shrink: 0;
+    }
+    .enquiry-info { flex: 1; min-width: 0; }
+    .enquiry-name { font-size: 0.875rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .enquiry-subject { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .enquiry-meta { font-size: 0.6875rem; color: var(--text-faint); flex-shrink: 0; }
+    .badge {
+      font-size: 0.625rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: var(--radius-full);
+    }
+    .badge-new { background: rgba(212,168,67,0.15); color: var(--accent); }
+    .badge-read { background: var(--surface-3); color: var(--text-faint); }
+    .badge-urgent { background: rgba(209,99,99,0.15); color: var(--error); }
+
+    .activity-row {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .activity-row:last-child { border-bottom: none; }
+    .activity-dot {
+      width: 8px; height: 8px;
+      border-radius: var(--radius-full);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .activity-dot-gold { background: var(--accent); }
+    .activity-dot-green { background: var(--success); }
+    .activity-dot-blue { background: #5591c7; }
+    .activity-text { font-size: 0.8125rem; color: var(--text-muted); line-height: 1.5; }
+    .activity-text strong { color: var(--text); font-weight: 600; }
+    .activity-time { font-size: 0.6875rem; color: var(--text-faint); margin-left: auto; flex-shrink: 0; }
+
+    /* ── ENQUIRIES PAGE ── */
+    .page-toolbar {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.25rem; flex-wrap: wrap;
+    }
+    .search-input-wrap { position: relative; flex: 1; min-width: 200px; }
+    .search-input-wrap svg { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-faint); pointer-events: none; }
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 0.875rem 0.5rem 2.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text);
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .search-input::placeholder { color: var(--text-faint); }
+    .filter-select {
+      padding: 0.5rem 0.875rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      outline: none;
+    }
+
+    .enquiries-table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      padding: 0.625rem 1rem;
+      text-align: left;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+      cursor: pointer;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--surface-2); }
+    tbody td {
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    tbody td:first-child { color: var(--text); font-weight: 500; }
+    .td-area { font-size: 0.75rem; }
+
+    /* ENQUIRY MODAL */
+    .modal-backdrop {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 540px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+    }
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 400; }
+    .modal-close {
+      width: 30px; height: 30px;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition), color var(--transition);
+    }
+    .modal-close:hover { background: var(--surface-2); color: var(--text); }
+    .modal-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    .modal-field label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); display: block; margin-bottom: 0.25rem; }
+    .modal-field p { font-size: 0.9375rem; color: var(--text); line-height: 1.6; }
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 0.75rem; justify-content: flex-end;
+    }
+    .btn-sm {
+      padding: 0.4375rem 1rem;
+      font-size: 0.8125rem; font-weight: 600;
+      border-radius: var(--radius-md);
+      transition: background var(--transition), color var(--transition);
+    }
+    .btn-ghost { color: var(--text-muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: var(--surface-2); color: var(--text); }
+    .btn-danger { background: rgba(209,99,99,0.12); color: var(--error); border: 1px solid rgba(209,99,99,0.2); }
+    .btn-danger:hover { background: rgba(209,99,99,0.2); }
+    .btn-gold { background: var(--accent); color: #0d1117; }
+    .btn-gold:hover { background: var(--accent-hover); }
+
+    /* ── INSIGHTS PAGE ── */
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(300px,100%), 1fr));
+      gap: 1rem;
+    }
+    .insight-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow var(--transition);
+    }
+    .insight-card:hover { box-shadow: var(--shadow); }
+    .insight-card__head {
+      padding: 1rem 1.125rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      flex: 1;
+    }
+    .insight-card__cat { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+    .insight-card__title { font-size: 0.9375rem; font-weight: 600; color: var(--text); line-height: 1.4; }
+    .insight-card__meta { font-size: 0.75rem; color: var(--text-faint); }
+    .insight-card__foot {
+      padding: 0.75rem 1.125rem;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+    }
+    .insight-card__status { font-size: 0.6875rem; font-weight: 700; }
+    .status-published { color: var(--success); }
+    .status-draft { color: var(--warning); }
+    .insight-actions { display: flex; gap: 0.5rem; }
+    .icon-btn {
+      width: 28px; height: 28px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-faint);
+      transition: background var(--transition), color var(--transition);
+    }
+    .icon-btn:hover { background: var(--surface-2); color: var(--text); }
+    .icon-btn.delete:hover { background: rgba(209,99,99,0.12); color: var(--error); }
+
+    /* NEW INSIGHT FORM */
+    .new-insight-panel {
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+    .new-insight-panel.open { display: block; }
+    .new-insight-panel h3 { font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--text); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .form-group-dark { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 0.75rem; }
+    .form-group-dark label { font-size: 0.75rem; font-weight: 600; color: var(--text-faint); }
+    .form-control-dark {
+      padding: 0.5625rem 0.75rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text);
+      font-size: 0.875rem;
+      outline: none;
+      width: 100%;
+      transition: border-color var(--transition);
+    }
+    .form-control-dark:focus { border-color: var(--accent); }
+    .form-control-dark::placeholder { color: var(--text-faint); }
+    textarea.form-control-dark { resize: vertical; min-height: 100px; }
+    .form-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem; }
+
+    /* ── TEAM PAGE ── */
+    .team-admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(260px,100%), 1fr));
+      gap: 1rem;
+    }
+    .team-admin-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.125rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+    }
+    .team-admin-avatar {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-full);
+      background: rgba(212,168,67,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 800; color: var(--accent);
+      flex-shrink: 0;
+    }
+    .team-admin-info { flex: 1; min-width: 0; }
+    .team-admin-name { font-size: 0.9375rem; font-weight: 600; color: var(--text); }
+    .team-admin-role { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.375rem; }
+    .team-admin-area { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+    .team-admin-actions { display: flex; gap: 0.375rem; flex-shrink: 0; }
+
+    /* ── SETTINGS PAGE ── */
+    .settings-sections { display: flex; flex-direction: column; gap: 1.25rem; max-width: 640px; }
+    .settings-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .settings-card__header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.625rem;
+    }
+    .settings-card__header h3 { font-size: 0.9375rem; font-weight: 600; }
+    .settings-card__body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.875rem; }
+    .settings-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .settings-row label { font-size: 0.875rem; font-weight: 500; color: var(--text); }
+    .settings-row p { font-size: 0.8125rem; color: var(--text-faint); margin-top: 0.1rem; }
+    .settings-label-group { display: flex; flex-direction: column; }
+    /* Toggle switch */
+    .toggle-wrap { display: flex; align-items: center; }
+    .toggle { position: relative; display: inline-block; width: 40px; height: 22px; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0;
+      background: var(--surface-3);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      left: 3px; top: 3px;
+      width: 16px; height: 16px;
+      border-radius: var(--radius-full);
+      background: white;
+      transition: transform var(--transition);
+    }
+    .toggle input:checked + .toggle-slider { background: var(--accent); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+    /* EMPTY STATE */
+    .empty-state {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: var(--text-faint);
+      display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    }
+    .empty-state svg { opacity: 0.3; }
+    .empty-state p { font-size: 0.875rem; max-width: 28ch; line-height: 1.6; }
+
+    /* QUICK LINKS */
+    .quick-links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .quick-link-card {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.875rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.875rem; font-weight: 500;
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+      cursor: pointer;
+    }
+    .quick-link-card:hover { background: var(--surface-2); color: var(--text); border-color: var(--accent); }
+    .quick-link-card svg { color: var(--accent); flex-shrink: 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .quick-links-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .admin-main { margin-left: 0; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .quick-links-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">⚖</div>
+      <span class="login-logo-text">Victor Muatine<span style="color:var(--accent)"> & Co.</span></span>
+    </div>
+    <h1>Admin Login</h1>
+    <p>Sign in to manage your website content.</p>
+    <div class="form-group">
+      <label for="loginUser">Username</label>
+      <input type="text" id="loginUser" class="form-control" placeholder="admin" autocomplete="username" />
+    </div>
+    <div class="form-group">
+      <label for="loginPass">Password</label>
+      <input type="password" id="loginPass" class="form-control" placeholder="••••••••" autocomplete="current-password" />
+    </div>
+    <button class="btn-primary" id="loginBtn">Sign In</button>
+    <p class="login-error" id="loginError"></p>
+    <p class="login-hint">Default: <strong style="color:var(--text-muted)">admin</strong> / <strong style="color:var(--text-muted)">victor2026</strong></p>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     ADMIN SHELL
+════════════════════════════════ -->
+<div id="adminShell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon">⚖</div>
+      <div class="sidebar-title">
+        Admin Panel
+        <span>Victor Muatine & Co.</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="nav-section-label">Overview</span>
+      <div class="nav-item active" data-page="dashboard">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </div>
+
+      <span class="nav-section-label">Content</span>
+      <div class="nav-item" data-page="enquiries">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Enquiries
+        <span class="nav-badge" id="badgeCount">5</span>
+      </div>
+      <div class="nav-item" data-page="insights">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Insights / Blog
+      </div>
+      <div class="nav-item" data-page="team">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Team Members
+      </div>
+
+      <span class="nav-section-label">Site</span>
+      <div class="nav-item" data-page="quicklinks">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        Quick Links
+      </div>
+      <div class="nav-item" data-page="settings">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="nav-item" id="logoutBtn">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log Out
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="admin-main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title" id="topbarTitle">Dashboard</span>
+      </div>
+      <div class="topbar-right">
+        <a href="index.html" target="_blank" class="topbar-btn topbar-btn-ghost">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Site
+        </a>
+        <div class="avatar">VM</div>
+      </div>
+    </header>
+
+    <!-- ── PAGE: DASHBOARD ── -->
+    <div class="admin-page active" id="page-dashboard">
+      <h1 class="page-heading">Good evening, Victor 👋</h1>
+      <p class="page-subheading">Here's what's happening with your website today.</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card__icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div class="stat-card__label">New Enquiries</div>
+          <div class="stat-card__value">5</div>
+          <div class="stat-card__change">↑ 2 this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="stat-card__label">Published Posts</div>
+          <div class="stat-card__value">6</div>
+          <div class="stat-card__change">↑ 1 this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div class="stat-card__label">Team Members</div>
+          <div class="stat-card__value">5</div>
+          <div class="stat-card__change" style="color:var(--text-faint)">Including Victor</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="stat-card__label">Practice Areas</div>
+          <div class="stat-card__value">6</div>
+          <div class="stat-card__change" style="color:var(--text-faint)">All active</div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Recent enquiries -->
+        <div class="dash-card">
+          <div class="dash-card__header">
+            <span class="dash-card__title">Recent Enquiries</span>
+            <span class="dash-card__action" data-page="enquiries">View all →</span>
+          </div>
+          <div class="dash-card__body">
+            <div class="enquiry-row" onclick="openModal('James Otieno','james@example.com','Family Law','I need help with a custody dispute. My ex-wife has restricted my access to my children and I need urgent legal advice.','Apr 7, 2026','new')">
+              <div class="enquiry-avatar">JO</div>
+              <div class="enquiry-info">
+                <div class="enquiry-name">James Otieno</div>
+                <div class="enquiry-subject">Custody dispute — urgent</div>
+              </div>
+              <span class="badge badge-urgent">Urgent</span>
+            </div>
+            <div class="enquiry-row" onclick="openModal('Wanjiku Mwangi','wanjiku@example.com','Commercial Law','We need a contract drafted for a new partnership agreement with a supplier.','Apr 6, 2026','new')">
+              <div class="enquiry-avatar">WM</div>
+              <div class="enquiry-info">
+                <div class="enquiry-name">Wanjiku Mwangi</div>
+                <div class="enquiry-subject">Partnership contract drafting</div>
+              </div>
+              <span class="badge badge-new">New</span>
+            </div>
+            <div class="enquiry-row" onclick="openModal('Peter Kimani','peter@example.com','Employment Law','I was dismissed without notice after 5 years of service. Need to know my options.','Apr 5, 2026','new')">
+              <div class="enquiry-avatar">PK</div>
+              <div class="enquiry-info">
+                <div class="enquiry-name">Peter Kimani</div>
+                <div class="enquiry-subject">Wrongful dismissal</div>
+              </div>
+              <span class="badge badge-new">New</span>
+            </div>
+            <div class="enquiry-row" onclick="openModal('Amina Hassan','amina@example.com','Property Law','I want to buy land in Kitui but I am not sure about the process.','Apr 3, 2026','read')">
+              <div class="enquiry-avatar">AH</div>
+              <div class="enquiry-info">
+                <div class="enquiry-name">Amina Hassan</div>
+                <div class="enquiry-subject">Land purchase due diligence</div>
+              </div>
+              <span class="badge badge-read">Read</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent activity -->
+        <div class="dash-card">
+          <div class="dash-card__header">
+            <span class="dash-card__title">Recent Activity</span>
+          </div>
+          <div class="dash-card__body">
+            <div class="activity-row">
+              <div class="activity-dot activity-dot-gold"></div>
+              <div class="activity-text"><strong>New enquiry</strong> received from James Otieno — Family Law (urgent)</div>
+              <span class="activity-time">2h ago</span>
+            </div>
+            <div class="activity-row">
+              <div class="activity-dot activity-dot-green"></div>
+              <div class="activity-text"><strong>Article published:</strong> "Know Your Rights When Arrested in Kenya"</div>
+              <span class="activity-time">1d ago</span>
+            </div>
+            <div class="activity-row">
+              <div class="activity-dot activity-dot-gold"></div>
+              <div class="activity-text"><strong>New enquiry</strong> received from Wanjiku Mwangi — Commercial Law</div>
+              <span class="activity-time">2d ago</span>
+            </div>
+            <div class="activity-row">
+              <div class="activity-dot activity-dot-blue"></div>
+              <div class="activity-text"><strong>Team member added:</strong> Grace Wanjiru — Criminal Defence</div>
+              <span class="activity-time">3d ago</span>
+            </div>
+            <div class="activity-row">
+              <div class="activity-dot activity-dot-green"></div>
+              <div class="activity-text"><strong>Article published:</strong> "5 Contract Clauses Every Business Owner Must Know"</div>
+              <span class="activity-time">5d ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: ENQUIRIES ── -->
+    <div class="admin-page" id="page-enquiries">
+      <h1 class="page-heading">Enquiries</h1>
+      <p class="page-subheading">Contact form submissions from potential clients.</p>
+
+      <div class="page-toolbar">
+        <div class="search-input-wrap">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="search" class="search-input" placeholder="Search enquiries..." id="enquirySearch" />
+        </div>
+        <select class="filter-select" id="enquiryFilter">
+          <option value="all">All Status</option>
+          <option value="new">New</option>
+          <option value="urgent">Urgent</option>
+          <option value="read">Read</option>
+        </select>
+      </div>
+
+      <div class="enquiries-table-wrap">
+        <table id="enquiriesTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Practice Area</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr onclick="openModal('James Otieno','james@example.com','Family Law','I need help with a custody dispute. My ex-wife has restricted my access to my children and I need urgent legal advice.','Apr 7, 2026','urgent')" data-status="urgent">
+              <td>James Otieno</td>
+              <td>james@example.com</td>
+              <td class="td-area">Family Law</td>
+              <td>Apr 7, 2026</td>
+              <td><span class="badge badge-urgent">Urgent</span></td>
+            </tr>
+            <tr onclick="openModal('Wanjiku Mwangi','wanjiku@example.com','Commercial Law','We need a contract drafted for a new partnership agreement with a supplier.','Apr 6, 2026','new')" data-status="new">
+              <td>Wanjiku Mwangi</td>
+              <td>wanjiku@example.com</td>
+              <td class="td-area">Commercial Law</td>
+              <td>Apr 6, 2026</td>
+              <td><span class="badge badge-new">New</span></td>
+            </tr>
+            <tr onclick="openModal('Peter Kimani','peter@example.com','Employment Law','I was dismissed without notice after 5 years of service. Need to know my options.','Apr 5, 2026','new')" data-status="new">
+              <td>Peter Kimani</td>
+              <td>peter@example.com</td>
+              <td class="td-area">Employment Law</td>
+              <td>Apr 5, 2026</td>
+              <td><span class="badge badge-new">New</span></td>
+            </tr>
+            <tr onclick="openModal('Amina Hassan','amina@example.com','Property Law','I want to buy land in Kitui but I am not sure about the process.','Apr 3, 2026','read')" data-status="read">
+              <td>Amina Hassan</td>
+              <td>amina@example.com</td>
+              <td class="td-area">Property Law</td>
+              <td>Apr 3, 2026</td>
+              <td><span class="badge badge-read">Read</span></td>
+            </tr>
+            <tr onclick="openModal('David Njenga','david@example.com','Criminal Defence','I have been charged with fraud and need a defence lawyer urgently.','Apr 1, 2026','read')" data-status="read">
+              <td>David Njenga</td>
+              <td>david@example.com</td>
+              <td class="td-area">Criminal Defence</td>
+              <td>Apr 1, 2026</td>
+              <td><span class="badge badge-read">Read</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── PAGE: INSIGHTS ── -->
+    <div class="admin-page" id="page-insights">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;flex-wrap:wrap;gap:0.75rem;">
+        <div>
+          <h1 class="page-heading">Insights / Blog</h1>
+          <p class="page-subheading">Manage your published articles and drafts.</p>
+        </div>
+        <button class="topbar-btn topbar-btn-accent" id="newInsightBtn">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Article
+        </button>
+      </div>
+
+      <!-- New insight form -->
+      <div class="new-insight-panel" id="newInsightPanel">
+        <h3>Add New Article</h3>
+        <div class="form-row">
+          <div class="form-group-dark">
+            <label>Title</label>
+            <input type="text" class="form-control-dark" id="ni-title" placeholder="Article title..." />
+          </div>
+          <div class="form-group-dark">
+            <label>Category</label>
+            <select class="form-control-dark" id="ni-cat">
+              <option>Family Law</option>
+              <option>Commercial Law</option>
+              <option>Criminal Law</option>
+              <option>Employment Law</option>
+              <option>Constitutional Law</option>
+              <option>Property &amp; Land</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group-dark">
+          <label>Excerpt</label>
+          <textarea class="form-control-dark" id="ni-excerpt" placeholder="Short description of the article..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group-dark">
+            <label>Author</label>
+            <input type="text" class="form-control-dark" id="ni-author" value="Victor Muatine" />
+          </div>
+          <div class="form-group-dark">
+            <label>Read Time</label>
+            <input type="text" class="form-control-dark" id="ni-readtime" placeholder="e.g. 5 min" />
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-sm btn-ghost" id="cancelInsightBtn">Cancel</button>
+          <button class="btn-sm btn-gold" id="saveInsightBtn">Save as Draft</button>
+          <button class="btn-sm btn-gold" id="publishInsightBtn" style="background:var(--success);color:#fff;">Publish</button>
+        </div>
+      </div>
+
+      <div class="insights-grid" id="insightsGrid">
+        <div class="insight-card">
+          <div class="insight-card__head">
+            <span class="insight-card__cat">Constitutional Law</span>
+            <div class="insight-card__title">Know Your Rights: What the Constitution Guarantees You When Arrested in Kenya</div>
+            <div class="insight-card__meta">Victor Muatine · Mar 28, 2026 · 8 min</div>
+          </div>
+          <div class="insight-card__foot">
+            <span class="insight-card__status status-published">● Published</span>
+            <div class="insight-actions">
+              <button class="icon-btn" title="Edit"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              <button class="icon-btn delete" title="Delete" onclick="deleteInsight(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-card__head">
+            <span class="insight-card__cat">Employment Law</span>
+            <div class="insight-card__title">Fired Without Cause? Here Is What the Employment Act Says You Are Owed</div>
+            <div class="insight-card__meta">Victor Muatine · Mar 24, 2026 · 7 min</div>
+          </div>
+          <div class="insight-card__foot">
+            <span class="insight-card__status status-published">● Published</span>
+            <div class="insight-actions">
+              <button class="icon-btn" title="Edit"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              <button class="icon-btn delete" title="Delete" onclick="deleteInsight(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-card__head">
+            <span class="insight-card__cat">Property &amp; Land</span>
+            <div class="insight-card__title">Before You Buy Land in Kenya: The 7 Due Diligence Steps You Cannot Skip</div>
+            <div class="insight-card__meta">Victor Muatine · Mar 15, 2026 · 9 min</div>
+          </div>
+          <div class="insight-card__foot">
+            <span class="insight-card__status status-draft">● Draft</span>
+            <div class="insight-actions">
+              <button class="icon-btn" title="Edit"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              <button class="icon-btn delete" title="Delete" onclick="deleteInsight(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: TEAM ── -->
+    <div class="admin-page" id="page-team">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;flex-wrap:wrap;gap:0.75rem;">
+        <div>
+          <h1 class="page-heading">Team Members</h1>
+          <p class="page-subheading">Manage who appears on the Our Team page.</p>
+        </div>
+        <button class="topbar-btn topbar-btn-accent">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Member
+        </button>
+      </div>
+      <div class="team-admin-grid" id="teamAdminGrid">
+        <div class="team-admin-card">
+          <div class="team-admin-avatar">VM</div>
+          <div class="team-admin-info">
+            <div class="team-admin-name">Victor Muatine</div>
+            <div class="team-admin-role">Founding Partner</div>
+            <div class="team-admin-area">All Practice Areas</div>
+          </div>
+          <div class="team-admin-actions">
+            <button class="icon-btn" title="Edit"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          </div>
+        </div>
+        <div class="team-admin-card">
+          <div class="team-admin-avatar">AO</div>
+          <div class="team-admin-info">
+            <div class="team-admin-name">Amina Odhiambo</div>
+            <div class="team-admin-role">Senior Associate</div>
+            <div class="team-admin-area">Family &amp; Child Law</div>
+          </div>
+          <div class="team-admin-actions">
+            <button class="icon-btn" title="Edit"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            <button class="icon-btn delete" title="Remove" onclick="removeTeamMember(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+          </div>
+        </div>
+        <div class="team-admin-card">
+          <div class="team-admin-avatar">BK</div>
+          <div class="team-admin-info">
+            <div class="team-admin-name">Brian Kamau</div>
+            <div class="team-admin-role">Associate</div>
+            <div class="team-admin-area">Commercial &amp; Disputes</div>
+          </div>
+          <div class="team-admin-actions">
+            <button class="icon-btn" title="Edit"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            <button class="icon-btn delete" title="Remove" onclick="removeTeamMember(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+          </div>
+        </div>
+        <div class="team-admin-card">
+          <div class="team-admin-avatar">GW</div>
+          <div class="team-admin-info">
+            <div class="team-admin-name">Grace Wanjiru</div>
+            <div class="team-admin-role">Associate</div>
+            <div class="team-admin-area">Criminal Defence</div>
+          </div>
+          <div class="team-admin-actions">
+            <button class="icon-btn" title="Edit"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            <button class="icon-btn delete" title="Remove" onclick="removeTeamMember(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+          </div>
+        </div>
+        <div class="team-admin-card">
+          <div class="team-admin-avatar">DM</div>
+          <div class="team-admin-info">
+            <div class="team-admin-name">David Mutua</div>
+            <div class="team-admin-role">Associate</div>
+            <div class="team-admin-area">Corporate &amp; Employment</div>
+          </div>
+          <div class="team-admin-actions">
+            <button class="icon-btn" title="Edit"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            <button class="icon-btn delete" title="Remove" onclick="removeTeamMember(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: QUICK LINKS ── -->
+    <div class="admin-page" id="page-quicklinks">
+      <h1 class="page-heading">Quick Links</h1>
+      <p class="page-subheading">Jump directly to any page on the site.</p>
+      <div class="quick-links-grid">
+        <a href="index.html" target="_blank" class="quick-link-card">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Home Page
+        </a>
+        <a href="about.html" target="_blank" class="quick-link-card">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          About Page
+        </a>
+        <a href="practice-areas.html" target="_blank" class="quick-link-card">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Practice Areas
+        </a>
+        <a href="team.html" target="_blank" class="quick-link-card">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Our Team
+        </a>
+        <a href="insights.html" target="_blank" class="quick-link-card">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Insights
+        </a>
+        <a href="contact.html" target="_blank" class="quick-link-card">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Contact
+        </a>
+      </div>
+    </div>
+
+    <!-- ── PAGE: SETTINGS ── -->
+    <div class="admin-page" id="page-settings">
+      <h1 class="page-heading">Settings</h1>
+      <p class="page-subheading">Manage your admin account and site preferences.</p>
+      <div class="settings-sections">
+
+        <div class="settings-card">
+          <div class="settings-card__header">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <h3>Account</h3>
+          </div>
+          <div class="settings-card__body">
+            <div class="form-group-dark">
+              <label>Username</label>
+              <input type="text" class="form-control-dark" value="admin" />
+            </div>
+            <div class="form-group-dark">
+              <label>New Password</label>
+              <input type="password" class="form-control-dark" placeholder="Leave blank to keep current" />
+            </div>
+            <div style="display:flex;justify-content:flex-end;">
+              <button class="btn-sm btn-gold">Save Changes</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="settings-card__header">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <h3>Preferences</h3>
+          </div>
+          <div class="settings-card__body">
+            <div class="settings-row">
+              <div class="settings-label-group">
+                <label>Email notifications</label>
+                <p>Get an email when a new enquiry arrives</p>
+              </div>
+              <div class="toggle-wrap">
+                <label class="toggle"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
+              </div>
+            </div>
+            <div class="settings-row">
+              <div class="settings-label-group">
+                <label>Dark mode admin panel</label>
+                <p>Always show admin in dark mode</p>
+              </div>
+              <div class="toggle-wrap">
+                <label class="toggle"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card" style="border-color:rgba(209,99,99,0.3);">
+          <div class="settings-card__header">
+            <svg width="15" height="15" fill="none" stroke="var(--error)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <h3 style="color:var(--error)">Danger Zone</h3>
+          </div>
+          <div class="settings-card__body">
+            <div class="settings-row">
+              <div class="settings-label-group">
+                <label>Log out of admin</label>
+                <p>Returns to the public website</p>
+              </div>
+              <button class="btn-sm btn-danger" id="logoutBtn2">Log Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /admin-main -->
+</div><!-- /adminShell -->
+
+
+<!-- ENQUIRY MODAL -->
+<div class="modal-backdrop" id="enquiryModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalName">Enquiry</span>
+      <button class="modal-close" id="modalClose">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field"><label>From</label><p id="modalEmail">—</p></div>
+      <div class="modal-field"><label>Practice Area</label><p id="modalArea">—</p></div>
+      <div class="modal-field"><label>Date</label><p id="modalDate">—</p></div>
+      <div class="modal-field"><label>Message</label><p id="modalMessage">—</p></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-ghost" id="modalClose2">Close</button>
+      <button class="btn-sm btn-danger" onclick="document.getElementById('enquiryModal').classList.remove('open')">Mark as Read</button>
+      <a class="btn-sm btn-gold" id="modalReply" href="#" target="_blank">Reply by Email</a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // ── AUTH ──
+  const ADMIN_USER = 'admin';
+  const ADMIN_PASS = 'victor2026';
+  let isLoggedIn = false;
+
+  document.getElementById('loginBtn').addEventListener('click', doLogin);
+  document.getElementById('loginPass').addEventListener('keydown', e => { if(e.key === 'Enter') doLogin(); });
+
+  function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value.trim();
+    const err = document.getElementById('loginError');
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+      isLoggedIn = true;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminShell').style.display = 'flex';
+    } else {
+      err.textContent = 'Incorrect username or password.';
+      document.getElementById('loginPass').value = '';
+    }
+  }
+
+  function doLogout() {
+    isLoggedIn = false;
+    document.getElementById('adminShell').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginError').textContent = '';
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', doLogout);
+  document.getElementById('logoutBtn2').addEventListener('click', doLogout);
+
+  // ── NAVIGATION ──
+  const navItems = document.querySelectorAll('.nav-item[data-page]');
+  const pages = document.querySelectorAll('.admin-page');
+  const topbarTitle = document.getElementById('topbarTitle');
+  const pageTitles = {
+    dashboard: 'Dashboard',
+    enquiries: 'Enquiries',
+    insights: 'Insights / Blog',
+    team: 'Team Members',
+    quicklinks: 'Quick Links',
+    settings: 'Settings'
+  };
+
+  function navigateTo(pageId) {
+    navItems.forEach(n => n.classList.toggle('active', n.dataset.page === pageId));
+    pages.forEach(p => p.classList.toggle('active', p.id === 'page-' + pageId));
+    topbarTitle.textContent = pageTitles[pageId] || '';
+  }
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => navigateTo(item.dataset.page));
+  });
+
+  // Dashboard "View all" link
+  document.querySelectorAll('.dash-card__action[data-page]').forEach(el => {
+    el.addEventListener('click', () => navigateTo(el.dataset.page));
+  });
+
+  // ── ENQUIRY MODAL ──
+  function openModal(name, email, area, message, date, status) {
+    document.getElementById('modalName').textContent = name;
+    document.getElementById('modalEmail').textContent = email;
+    document.getElementById('modalArea').textContent = area;
+    document.getElementById('modalDate').textContent = date;
+    document.getElementById('modalMessage').textContent = message;
+    document.getElementById('modalReply').href = 'mailto:' + email + '?subject=Re: Your Enquiry — Victor Muatine & Co. Advocates';
+    document.getElementById('enquiryModal').classList.add('open');
+  }
+
+  document.getElementById('modalClose').addEventListener('click', () => document.getElementById('enquiryModal').classList.remove('open'));
+  document.getElementById('modalClose2').addEventListener('click', () => document.getElementById('enquiryModal').classList.remove('open'));
+  document.getElementById('enquiryModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('enquiryModal')) document.getElementById('enquiryModal').classList.remove('open');
+  });
+
+  // ── ENQUIRY FILTER ──
+  document.getElementById('enquirySearch').addEventListener('input', filterEnquiries);
+  document.getElementById('enquiryFilter').addEventListener('change', filterEnquiries);
+
+  function filterEnquiries() {
+    const q = document.getElementById('enquirySearch').value.toLowerCase();
+    const f = document.getElementById('enquiryFilter').value;
+    document.querySelectorAll('#enquiriesTable tbody tr').forEach(row => {
+      const text = row.textContent.toLowerCase();
+      const status = row.dataset.status;
+      const matchQ = text.includes(q);
+      const matchF = f === 'all' || status === f;
+      row.style.display = matchQ && matchF ? '' : 'none';
+    });
+  }
+
+  // ── NEW INSIGHT PANEL ──
+  document.getElementById('newInsightBtn').addEventListener('click', () => {
+    document.getElementById('newInsightPanel').classList.add('open');
+  });
+  document.getElementById('cancelInsightBtn').addEventListener('click', () => {
+    document.getElementById('newInsightPanel').classList.remove('open');
+  });
+
+  function addInsightCard(title, cat, author, readtime, status) {
+    const grid = document.getElementById('insightsGrid');
+    const statusClass = status === 'published' ? 'status-published' : 'status-draft';
+    const statusLabel = status === 'published' ? '● Published' : '● Draft';
+    const now = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+    const card = document.createElement('div');
+    card.className = 'insight-card';
+    card.innerHTML = `
+      <div class="insight-card__head">
+        <span class="insight-card__cat">${cat}</span>
+        <div class="insight-card__title">${title || 'Untitled Article'}</div>
+        <div class="insight-card__meta">${author} · ${now}${readtime ? ' · ' + readtime : ''}</div>
+      </div>
+      <div class="insight-card__foot">
+        <span class="insight-card__status ${statusClass}">${statusLabel}</span>
+        <div class="insight-actions">
+          <button class="icon-btn" title="Edit"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="icon-btn delete" title="Delete" onclick="deleteInsight(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+        </div>
+      </div>`;
+    grid.prepend(card);
+  }
+
+  document.getElementById('saveInsightBtn').addEventListener('click', () => {
+    const title = document.getElementById('ni-title').value;
+    const cat = document.getElementById('ni-cat').value;
+    const author = document.getElementById('ni-author').value;
+    const rt = document.getElementById('ni-readtime').value;
+    addInsightCard(title, cat, author, rt, 'draft');
+    document.getElementById('newInsightPanel').classList.remove('open');
+    document.getElementById('ni-title').value = '';
+    document.getElementById('ni-excerpt').value = '';
+    document.getElementById('ni-readtime').value = '';
+  });
+
+  document.getElementById('publishInsightBtn').addEventListener('click', () => {
+    const title = document.getElementById('ni-title').value;
+    const cat = document.getElementById('ni-cat').value;
+    const author = document.getElementById('ni-author').value;
+    const rt = document.getElementById('ni-readtime').value;
+    addInsightCard(title, cat, author, rt, 'published');
+    document.getElementById('newInsightPanel').classList.remove('open');
+    document.getElementById('ni-title').value = '';
+    document.getElementById('ni-excerpt').value = '';
+    document.getElementById('ni-readtime').value = '';
+  });
+
+  function deleteInsight(btn) {
+    if (confirm('Delete this article?')) btn.closest('.insight-card').remove();
+  }
+
+  function removeTeamMember(btn) {
+    if (confirm('Remove this team member?')) btn.closest('.team-admin-card').remove();
+  }
+</script>
+</body>
+</html>

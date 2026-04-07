@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Legal insights, analysis and commentary from Victor Muatine & Co. Advocates — Kenyan law made accessible." />
+  <title>Insights | Victor Muatine & Co. Advocates</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./css/tokens.css" />
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <style>
+    /* PAGE HERO */
+    .page-hero {
+      background: var(--color-primary);
+      padding-top: calc(68px + clamp(var(--space-16), 8vw, var(--space-24)));
+      padding-bottom: clamp(var(--space-16), 8vw, var(--space-24));
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, transparent, var(--color-accent), transparent);
+    }
+    .page-hero__eyebrow {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-4);
+    }
+    .page-hero__title {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: var(--space-4);
+    }
+    .page-hero__title em { font-style: italic; color: var(--color-accent); }
+    .page-hero__sub {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.6);
+      max-width: 52ch;
+      line-height: 1.7;
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.4);
+      margin-bottom: var(--space-8);
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.4); }
+    .breadcrumb a:hover { color: var(--color-accent); }
+    .breadcrumb span { color: rgba(255,255,255,0.25); }
+
+    /* CATEGORY FILTER */
+    .cat-filter {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 68px;
+      z-index: 50;
+    }
+    .cat-filter__inner {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cat-filter__inner::-webkit-scrollbar { display: none; }
+    .cat-btn {
+      flex-shrink: 0;
+      padding: var(--space-4) var(--space-6);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      font-family: var(--font-body);
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color var(--transition-interactive), border-color var(--transition-interactive);
+    }
+    .cat-btn:hover { color: var(--color-text); }
+    .cat-btn.active {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+    }
+
+    /* FEATURED ARTICLE */
+    .featured-section {
+      padding-block: clamp(var(--space-16), 8vw, var(--space-24));
+      background: var(--color-bg);
+    }
+    .featured-article {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    .featured-article__img-wrap { overflow: hidden; height: 100%; min-height: 400px; }
+    .featured-article__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .featured-article:hover .featured-article__img { transform: scale(1.03); }
+    .featured-article__content {
+      padding: clamp(var(--space-8), 4vw, var(--space-12));
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+    .featured-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+    .featured-label::before {
+      content: '';
+      display: block;
+      width: 20px; height: 2px;
+      background: var(--color-accent);
+    }
+    .featured-article__cat {
+      display: inline-block;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      background: rgba(201,149,42,0.1);
+      border-radius: var(--radius-full);
+      padding: var(--space-1) var(--space-3);
+      border: 1px solid rgba(201,149,42,0.2);
+    }
+    .featured-article__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 400;
+      color: var(--color-text);
+      line-height: 1.2;
+    }
+    .featured-article__title a { color: inherit; }
+    .featured-article__title a:hover { color: var(--color-accent); }
+    .featured-article__excerpt {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      line-height: 1.8;
+    }
+    .featured-article__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+    }
+    .featured-article__meta span { display: flex; align-items: center; gap: var(--space-1); }
+    .featured-article__read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-accent);
+    }
+    .featured-article__read-more:hover { text-decoration: underline; }
+    .featured-article__read-more svg { transition: transform var(--transition-interactive); }
+    .featured-article__read-more:hover svg { transform: translateX(4px); }
+
+    /* ARTICLES GRID */
+    .articles-section {
+      padding-block: clamp(var(--space-12), 6vw, var(--space-20));
+      background: var(--color-surface);
+    }
+    .articles-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: var(--space-10);
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+    .articles-header h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 400;
+      color: var(--color-text);
+    }
+    .article-count {
+      font-size: var(--text-sm);
+      color: var(--color-text-faint);
+    }
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(320px,100%), 1fr));
+      gap: var(--space-6);
+    }
+
+    /* ARTICLE CARD */
+    .article-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow var(--transition-interactive), transform var(--transition-interactive);
+    }
+    .article-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+    .article-card__img-wrap { overflow: hidden; }
+    .article-card__img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .article-card:hover .article-card__img { transform: scale(1.04); }
+    .article-card__body {
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      flex: 1;
+    }
+    .article-card__cat {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+    .article-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 400;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+    .article-card__title a { color: inherit; }
+    .article-card__title a:hover { color: var(--color-accent); }
+    .article-card__excerpt {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.75;
+      flex: 1;
+    }
+    .article-card__footer {
+      padding: var(--space-4) var(--space-6);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .article-card__meta {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .article-card__read {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .article-card__read:hover { text-decoration: underline; }
+    .article-card__read svg { transition: transform var(--transition-interactive); }
+    .article-card__read:hover svg { transform: translateX(3px); }
+
+    /* NEWSLETTER */
+    .newsletter-section {
+      background: var(--color-primary);
+      padding-block: clamp(var(--space-16), 7vw, var(--space-20));
+    }
+    .newsletter-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+    }
+    .newsletter-copy h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: var(--space-4);
+      line-height: 1.2;
+    }
+    .newsletter-copy h2 em { font-style: italic; color: var(--color-accent); }
+    .newsletter-copy p {
+      font-size: var(--text-base);
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+    }
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .newsletter-form label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+    .newsletter-input-row {
+      display: flex;
+      gap: var(--space-3);
+    }
+    .newsletter-input {
+      flex: 1;
+      padding: var(--space-3) var(--space-5);
+      font-size: var(--text-sm);
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color var(--transition-interactive), background var(--transition-interactive);
+    }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.3); }
+    .newsletter-input:focus {
+      border-color: var(--color-accent);
+      background: rgba(255,255,255,0.1);
+    }
+    .newsletter-btn {
+      padding: var(--space-3) var(--space-6);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      font-family: var(--font-body);
+      background: var(--color-accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background var(--transition-interactive);
+    }
+    .newsletter-btn:hover { background: var(--color-accent-hover); }
+    .newsletter-disclaimer {
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.3);
+      line-height: 1.6;
+    }
+
+    /* YOUTUBE STRIP */
+    .youtube-section {
+      padding-block: clamp(var(--space-16), 7vw, var(--space-20));
+      background: var(--color-bg);
+    }
+    .youtube-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-10);
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+    .youtube-header h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 400;
+      color: var(--color-text);
+    }
+    .youtube-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+    .yt-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      transition: box-shadow var(--transition-interactive), transform var(--transition-interactive);
+    }
+    .yt-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .yt-card__thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    .yt-card__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .yt-card:hover .yt-card__thumb img { transform: scale(1.04); }
+    .yt-card__play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.3);
+      transition: background var(--transition-interactive);
+    }
+    .yt-card:hover .yt-card__play { background: rgba(0,0,0,0.5); }
+    .yt-card__play-icon {
+      width: 48px; height: 48px;
+      background: rgba(255,255,255,0.95);
+      border-radius: var(--radius-full);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-accent);
+    }
+    .yt-card__body {
+      padding: var(--space-5);
+    }
+    .yt-card__title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text);
+      line-height: 1.45;
+      margin-bottom: var(--space-2);
+    }
+    .yt-card__meta {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+    }
+
+    /* HIDDEN for filter */
+    .article-card[data-hidden="true"] { display: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .featured-article { grid-template-columns: 1fr; }
+      .featured-article__img-wrap { min-height: 260px; }
+      .newsletter-inner { grid-template-columns: 1fr; }
+      .youtube-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .youtube-grid { grid-template-columns: 1fr; }
+      .newsletter-input-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="sr-only skip-link">Skip to main content</a>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo" aria-label="Victor Muatine & Co. Advocates Home">
+        <svg width="160" height="38" viewBox="0 0 160 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="8" r="2" fill="#c9952a"/>
+          <line x1="18" y1="10" x2="18" y2="30" stroke="#c9952a" stroke-width="1.5"/>
+          <line x1="10" y1="13" x2="26" y2="13" stroke="#c9952a" stroke-width="1.5"/>
+          <path d="M10 13 L7 20 Q10 24 13 20 L10 13Z" stroke="#c9952a" stroke-width="1.2" fill="none"/>
+          <path d="M26 13 L23 20 Q26 24 29 20 L26 13Z" stroke="#c9952a" stroke-width="1.2" fill="none"/>
+          <line x1="13" y1="30" x2="23" y2="30" stroke="#c9952a" stroke-width="1.5"/>
+          <text x="36" y="16" font-family="'Instrument Serif', Georgia, serif" font-size="12" fill="currentColor">Victor Muatine</text>
+          <text x="36" y="30" font-family="'General Sans', Inter, sans-serif" font-size="8" fill="#c9952a" font-weight="600" letter-spacing="0.1em">&amp; CO. ADVOCATES</text>
+        </svg>
+      </a>
+      <nav class="navbar__links" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="practice-areas.html">Practice Areas</a>
+        <a href="team.html">Our Team</a>
+        <a href="insights.html" style="color:var(--color-accent);">Insights</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="navbar__actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <a href="contact.html" class="btn btn-accent">Book Consultation</a>
+        <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="practice-areas.html">Practice Areas</a>
+    <a href="team.html">Our Team</a>
+    <a href="insights.html">Insights</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-accent" style="margin-top:var(--space-6);text-align:center;justify-content:center;">Book Consultation</a>
+  </nav>
+
+  <main id="main">
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span>›</span>
+          <span style="color:rgba(255,255,255,0.6);">Insights</span>
+        </nav>
+        <p class="page-hero__eyebrow">Legal Knowledge</p>
+        <h1 class="page-hero__title">Law You Can<br /><em>Actually Use</em></h1>
+        <p class="page-hero__sub">Practical commentary on Kenyan law — breaking down complex legal developments into plain language for citizens, businesses, and professionals.</p>
+      </div>
+    </section>
+
+    <!-- CATEGORY FILTER -->
+    <nav class="cat-filter" aria-label="Filter articles by category">
+      <div class="container cat-filter__inner">
+        <button class="cat-btn active" data-cat="all">All Insights</button>
+        <button class="cat-btn" data-cat="family">Family Law</button>
+        <button class="cat-btn" data-cat="commercial">Commercial</button>
+        <button class="cat-btn" data-cat="criminal">Criminal Law</button>
+        <button class="cat-btn" data-cat="employment">Employment</button>
+        <button class="cat-btn" data-cat="constitutional">Constitutional</button>
+        <button class="cat-btn" data-cat="property">Property &amp; Land</button>
+      </div>
+    </nav>
+
+
+    <!-- FEATURED ARTICLE -->
+    <section class="featured-section" aria-label="Featured article">
+      <div class="container">
+        <span class="section-label">Featured</span>
+        <div class="featured-article">
+          <div class="featured-article__img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=900&q=80"
+              alt="Understanding your rights in a Kenyan courtroom"
+              width="900" height="600"
+              loading="eager"
+              class="featured-article__img"
+            />
+          </div>
+          <div class="featured-article__content">
+            <span class="featured-article__cat">Constitutional Law</span>
+            <h2 class="featured-article__title">
+              <a href="#">Know Your Rights: What the Constitution Guarantees You When Arrested in Kenya</a>
+            </h2>
+            <p class="featured-article__excerpt">Most Kenyans do not know that Article 49 of the Constitution gives you the right to be informed of the reason for your arrest, to remain silent, to communicate with an advocate, and to be brought before a court within 24 hours. Victor Muatine breaks this down in plain language.</p>
+            <div class="featured-article__meta">
+              <span>
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                8 min read
+              </span>
+              <span>March 28, 2026</span>
+              <span>Victor Muatine</span>
+            </div>
+            <a href="#" class="featured-article__read-more">
+              Read the full article
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ARTICLES GRID -->
+    <section class="articles-section" aria-label="All articles">
+      <div class="container">
+        <div class="articles-header">
+          <div>
+            <span class="section-label">All Articles</span>
+            <h2>Latest Insights</h2>
+          </div>
+          <span class="article-count" id="articleCount">Showing 6 articles</span>
+        </div>
+
+        <div class="articles-grid" id="articlesGrid">
+
+          <!-- Article 1 -->
+          <article class="article-card" data-cat="family">
+            <div class="article-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1521791055366-0d553872952f?w=600&q=75" alt="Family law in Kenya — divorce process" width="600" height="338" loading="lazy" class="article-card__img" />
+            </div>
+            <div class="article-card__body">
+              <span class="article-card__cat">Family Law</span>
+              <h3 class="article-card__title"><a href="#">How Long Does a Divorce Actually Take in Kenya? A Step-by-Step Guide</a></h3>
+              <p class="article-card__excerpt">From filing the petition to receiving your decree absolute — the Kenyan divorce process explained clearly, including what can speed it up or slow it down.</p>
+            </div>
+            <div class="article-card__footer">
+              <div class="article-card__meta">
+                <span>Apr 2, 2026</span>
+                <span>·</span>
+                <span>6 min</span>
+              </div>
+              <a href="#" class="article-card__read">
+                Read
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 2 -->
+          <article class="article-card" data-cat="employment">
+            <div class="article-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=600&q=75" alt="Employment law Kenya — unfair dismissal" width="600" height="338" loading="lazy" class="article-card__img" />
+            </div>
+            <div class="article-card__body">
+              <span class="article-card__cat">Employment Law</span>
+              <h3 class="article-card__title"><a href="#">Fired Without Cause? Here Is What the Employment Act Says You Are Owed</a></h3>
+              <p class="article-card__excerpt">Kenya's Employment Act 2007 is robust. Yet thousands of workers are dismissed unlawfully every year without receiving what they are legally entitled to. We explain your entitlements clearly.</p>
+            </div>
+            <div class="article-card__footer">
+              <div class="article-card__meta">
+                <span>Mar 24, 2026</span>
+                <span>·</span>
+                <span>7 min</span>
+              </div>
+              <a href="#" class="article-card__read">
+                Read
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 3 -->
+          <article class="article-card" data-cat="property">
+            <div class="article-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75" alt="Land buying process in Kenya" width="600" height="338" loading="lazy" class="article-card__img" />
+            </div>
+            <div class="article-card__body">
+              <span class="article-card__cat">Property &amp; Land</span>
+              <h3 class="article-card__title"><a href="#">Before You Buy Land in Kenya: The 7 Due Diligence Steps You Cannot Skip</a></h3>
+              <p class="article-card__excerpt">Land fraud is rampant in Kenya. These seven steps — from official search to mutation inspection — will protect you from buying property you can never build on.</p>
+            </div>
+            <div class="article-card__footer">
+              <div class="article-card__meta">
+                <span>Mar 15, 2026</span>
+                <span>·</span>
+                <span>9 min</span>
+              </div>
+              <a href="#" class="article-card__read">
+                Read
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 4 -->
+          <article class="article-card" data-cat="criminal">
+            <div class="article-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&q=75" alt="Criminal law Kenya — bail process" width="600" height="338" loading="lazy" class="article-card__img" />
+            </div>
+            <div class="article-card__body">
+              <span class="article-card__cat">Criminal Law</span>
+              <h3 class="article-card__title"><a href="#">Bail in Kenya: How It Works, Who Gets It, and Why You Need a Lawyer From the First Hearing</a></h3>
+              <p class="article-card__excerpt">Many Kenyans sit in remand custody for months not because they cannot access bail, but because they did not have representation at the crucial first hearing. This guide changes that.</p>
+            </div>
+            <div class="article-card__footer">
+              <div class="article-card__meta">
+                <span>Mar 8, 2026</span>
+                <span>·</span>
+                <span>5 min</span>
+              </div>
+              <a href="#" class="article-card__read">
+                Read
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 5 -->
+          <article class="article-card" data-cat="commercial">
+            <div class="article-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=75" alt="Business contracts in Kenya" width="600" height="338" loading="lazy" class="article-card__img" />
+            </div>
+            <div class="article-card__body">
+              <span class="article-card__cat">Commercial Law</span>
+              <h3 class="article-card__title"><a href="#">Why a Handshake Deal Is Not Enough: Protecting Your Business With Proper Contracts</a></h3>
+              <p class="article-card__excerpt">Oral agreements are enforceable in Kenya — but proving them in court is a nightmare. Here is why every business transaction needs a written contract and what must be in it.</p>
+            </div>
+            <div class="article-card__footer">
+              <div class="article-card__meta">
+                <span>Feb 28, 2026</span>
+                <span>·</span>
+                <span>6 min</span>
+              </div>
+              <a href="#" class="article-card__read">
+                Read
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 6 -->
+          <article class="article-card" data-cat="constitutional">
+            <div class="article-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=75" alt="Kenya constitution and rights" width="600" height="338" loading="lazy" class="article-card__img" />
+            </div>
+            <div class="article-card__body">
+              <span class="article-card__cat">Constitutional Law</span>
+              <h3 class="article-card__title"><a href="#">Article 47 Explained: Your Right to Fair Administrative Action and How to Enforce It</a></h3>
+              <p class="article-card__excerpt">Government agencies make decisions that affect your life every day. Article 47 gives you the right to challenge those decisions — but most Kenyans do not know it exists.</p>
+            </div>
+            <div class="article-card__footer">
+              <div class="article-card__meta">
+                <span>Feb 14, 2026</span>
+                <span>·</span>
+                <span>8 min</span>
+              </div>
+              <a href="#" class="article-card__read">
+                Read
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- YOUTUBE SECTION -->
+    <section class="youtube-section" aria-label="Video content from publaw">
+      <div class="container">
+        <div class="youtube-header">
+          <div>
+            <span class="section-label">Video</span>
+            <h2>Watch on YouTube — @publaw</h2>
+          </div>
+          <a href="https://www.youtube.com/@publaw" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Channel →</a>
+        </div>
+        <div class="youtube-grid">
+          <div class="yt-card">
+            <div class="yt-card__thumb">
+              <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=70" alt="Victor Muatine on YouTube — Know Your Rights" width="600" height="338" loading="lazy" />
+              <div class="yt-card__play">
+                <div class="yt-card__play-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="yt-card__body">
+              <p class="yt-card__title">What to Do When Police Stop You in Kenya — Your Rights Explained</p>
+              <p class="yt-card__meta">@publaw · 142K views</p>
+            </div>
+          </div>
+          <div class="yt-card">
+            <div class="yt-card__thumb">
+              <img src="https://images.unsplash.com/photo-1521791055366-0d553872952f?w=600&q=70" alt="Victor Muatine on family law" width="600" height="338" loading="lazy" />
+              <div class="yt-card__play">
+                <div class="yt-card__play-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="yt-card__body">
+              <p class="yt-card__title">Child Custody in Kenya: What Courts Actually Look At</p>
+              <p class="yt-card__meta">@publaw · 98K views</p>
+            </div>
+          </div>
+          <div class="yt-card">
+            <div class="yt-card__thumb">
+              <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=70" alt="Victor Muatine on contracts" width="600" height="338" loading="lazy" />
+              <div class="yt-card__play">
+                <div class="yt-card__play-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="yt-card__body">
+              <p class="yt-card__title">5 Contract Clauses That Will Ruin Your Business If You Sign Them</p>
+              <p class="yt-card__meta">@publaw · 67K views</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter-section" aria-label="Subscribe to legal insights">
+      <div class="container">
+        <div class="newsletter-inner">
+          <div class="newsletter-copy">
+            <span class="section-label" style="color:var(--color-accent);border-color:rgba(201,149,42,0.3);">Stay Informed</span>
+            <h2>Get <em>Legal Insights</em><br />Delivered to You</h2>
+            <p>Join thousands of Kenyans who receive Victor Muatine's plain-language legal commentary directly in their inbox — no jargon, no filler, just law you can use.</p>
+          </div>
+          <div>
+            <form class="newsletter-form" id="newsletterForm" novalidate>
+              <label for="nlEmail">Your email address</label>
+              <div class="newsletter-input-row">
+                <input
+                  type="email"
+                  id="nlEmail"
+                  name="email"
+                  class="newsletter-input"
+                  placeholder="you@example.com"
+                  required
+                  autocomplete="email"
+                />
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+              </div>
+              <p class="newsletter-disclaimer" id="nlMessage">We send one email per week. No spam. Unsubscribe any time.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <svg width="160" height="38" viewBox="0 0 160 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="8" r="2" fill="#c9952a"/>
+            <line x1="18" y1="10" x2="18" y2="30" stroke="#c9952a" stroke-width="1.5"/>
+            <line x1="10" y1="13" x2="26" y2="13" stroke="#c9952a" stroke-width="1.5"/>
+            <path d="M10 13 L7 20 Q10 24 13 20 L10 13Z" stroke="#c9952a" stroke-width="1.2" fill="none"/>
+            <path d="M26 13 L23 20 Q26 24 29 20 L26 13Z" stroke="#c9952a" stroke-width="1.2" fill="none"/>
+            <line x1="13" y1="30" x2="23" y2="30" stroke="#c9952a" stroke-width="1.5"/>
+            <text x="36" y="16" font-family="'Instrument Serif', Georgia, serif" font-size="12" fill="white">Victor Muatine</text>
+            <text x="36" y="30" font-family="'General Sans', Inter, sans-serif" font-size="8" fill="#c9952a" font-weight="600" letter-spacing="0.1em">&amp; CO. ADVOCATES</text>
+          </svg>
+          <p>Trusted legal expertise across Kenya — dispute resolution, family law, commercial litigation, construction, and more.</p>
+          <div class="footer__tagline">⚖ Integrity · Strategy · Results</div>
+        </div>
+        <div class="footer__col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Victor</a></li>
+            <li><a href="practice-areas.html">Practice Areas</a></li>
+            <li><a href="team.html">Our Team</a></li>
+            <li><a href="insights.html">Insights</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Practice Areas</h4>
+          <ul>
+            <li><a href="practice-areas.html#dispute">Dispute Resolution</a></li>
+            <li><a href="practice-areas.html#family">Family Law</a></li>
+            <li><a href="practice-areas.html#commercial">Commercial Law</a></li>
+            <li><a href="practice-areas.html#construction">Construction</a></li>
+            <li><a href="practice-areas.html#employment">Employment</a></li>
+            <li><a href="practice-areas.html#criminal">Criminal Defence</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Nairobi &amp; Kitui, Kenya</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.3 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+254 700 000 000</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@victormuatine.co.ke</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Victor Muatine &amp; Co. Advocates. All rights reserved. | Regulated by the Law Society of Kenya.</p>
+        <div class="footer__socials">
+          <a href="https://x.com/MuatineLegal" target="_blank" rel="noopener noreferrer" aria-label="X">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.265 5.638zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/publ_aw/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@publaw" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/main.js" defer></script>
+  <script>
+    // Category filter
+    const catBtns = document.querySelectorAll('.cat-btn');
+    const articleCards = document.querySelectorAll('.article-card');
+    const articleCount = document.getElementById('articleCount');
+
+    catBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.cat;
+        catBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        let visible = 0;
+        articleCards.forEach(card => {
+          const show = cat === 'all' || card.dataset.cat === cat;
+          card.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        articleCount.textContent = `Showing ${visible} article${visible !== 1 ? 's' : ''}`;
+      });
+    });
+
+    // Newsletter
+    const nlForm = document.getElementById('newsletterForm');
+    const nlMessage = document.getElementById('nlMessage');
+    nlForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const email = document.getElementById('nlEmail').value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        nlMessage.textContent = 'Please enter a valid email address.';
+        nlMessage.style.color = '#e74c3c';
+        return;
+      }
+      nlMessage.textContent = '✓ You\'re subscribed! Check your inbox for a confirmation.';
+      nlMessage.style.color = '#c9952a';
+      document.getElementById('nlEmail').value = '';
+    });
+  </script>
+
+</body>
+</html>
