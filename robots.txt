@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# Block common junk paths
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /*.json$
+
+Sitemap: https://victormuatine.co.ke/sitemap.xml

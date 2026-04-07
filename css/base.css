@@ -1,48 +1,73 @@
-/* ============================================
-   BASE.CSS — Reset + Global Defaults
-   Victor Muatine & Co. Advocates
-   ============================================ */
+/*
+ * base.css — Victor Muatine & Co. Advocates
+ * CSS reset, element defaults, accessibility, performance
+ * Depends on: tokens.css (must be loaded first)
+ */
 
-*, *::before, *::after {
+/* ─────────────────────────────────────────────
+   BOX MODEL & RESET
+   ───────────────────────────────────────────── */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* ─────────────────────────────────────────────
+   HTML & BODY
+   ───────────────────────────────────────────── */
 html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
-  scroll-padding-top: var(--space-16);
   hanging-punctuation: first last;
+  scroll-padding-top: calc(var(--navbar-height) + var(--space-6));
 }
 
 body {
   min-height: 100dvh;
-  font-family: var(--font-body, sans-serif);
+  line-height: 1.6;
+  font-family: var(--font-body);
   font-size: var(--text-base);
   color: var(--color-text);
   background-color: var(--color-bg);
-  line-height: 1.6;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color var(--transition-slow),
+              color var(--transition-slow);
 }
 
-img, picture, video, canvas, svg {
+/* ─────────────────────────────────────────────
+   MEDIA
+   ───────────────────────────────────────────── */
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
-input, button, textarea, select {
-  font: inherit;
-  color: inherit;
+/* Image loading fallback */
+img {
+  background: var(--color-surface-offset);
 }
 
+/* ─────────────────────────────────────────────
+   TYPOGRAPHY DEFAULTS
+   ───────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
   line-height: 1.15;
   font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--color-text);
 }
 
 p, li, figcaption {
@@ -50,129 +75,188 @@ p, li, figcaption {
   max-width: 72ch;
 }
 
+/* Body copy never inherits display font */
+p, li, span, label, input, button, select, textarea {
+  font-family: var(--font-body);
+}
+
+strong, b { font-weight: 700; }
+em, i     { font-style: italic; }
+
+/* Superscript / subscript */
+sup, sub { font-size: 0.75em; }
+
+/* Small / fine print */
+small { font-size: var(--text-xs); }
+
+/* ─────────────────────────────────────────────
+   LINKS
+   ───────────────────────────────────────────── */
 a {
   color: inherit;
   text-decoration: none;
+  transition: color var(--transition-interactive);
 }
 
-ul { list-style: none; }
+a:hover { color: var(--color-accent); }
 
-button { cursor: pointer; background: none; border: none; }
+/* ─────────────────────────────────────────────
+   LISTS
+   ───────────────────────────────────────────── */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
 
-table { border-collapse: collapse; width: 100%; }
+/* ─────────────────────────────────────────────
+   FORMS
+   ───────────────────────────────────────────── */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
 
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* ─────────────────────────────────────────────
+   TABLES
+   ───────────────────────────────────────────── */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────
+   BLOCKQUOTE
+   ───────────────────────────────────────────── */
+blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  border-left: 3px solid var(--color-accent);
+  padding-left: var(--space-5);
+  color: var(--color-text-muted);
+}
+
+/* ─────────────────────────────────────────────
+   HORIZONTAL RULE
+   ───────────────────────────────────────────── */
+hr {
+  border: none;
+  border-top: 1px solid var(--color-divider);
+  margin-block: var(--space-8);
+}
+
+/* ─────────────────────────────────────────────
+   SELECTION
+   ───────────────────────────────────────────── */
 ::selection {
-  background: rgba(201, 149, 42, 0.2);
+  background: color-mix(in oklch, var(--color-accent) 30%, transparent);
   color: var(--color-text);
 }
 
+/* ─────────────────────────────────────────────
+   FOCUS — WCAG AA visible keyboard ring
+   ───────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
 
+/* Remove focus ring for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─────────────────────────────────────────────
+   INTERACTIVE TRANSITIONS
+   Only on clickable elements — never on divs
+   ───────────────────────────────────────────── */
+a,
+button,
+[role="button"],
+[role="link"],
+input,
+textarea,
+select {
+  transition:
+    color var(--transition-interactive),
+    background-color var(--transition-interactive),
+    border-color var(--transition-interactive),
+    box-shadow var(--transition-interactive),
+    opacity var(--transition-interactive);
+}
+
+/* ─────────────────────────────────────────────
+   REDUCED MOTION
+   ───────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }
 
-a, button, [role="button"] {
-  transition: color var(--transition),
-              background var(--transition),
-              border-color var(--transition),
-              box-shadow var(--transition),
-              opacity var(--transition);
-}
+/* ─────────────────────────────────────────────
+   ACCESSIBILITY UTILITIES
+   ───────────────────────────────────────────── */
 
-/* === UTILITIES === */
-.container {
-  max-width: var(--content-wide);
-  margin-inline: auto;
-  padding-inline: var(--space-6);
-}
-
-.container--narrow {
-  max-width: var(--content-default);
-  margin-inline: auto;
-  padding-inline: var(--space-6);
-}
-
+/* Screen-reader only */
 .sr-only {
   position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
 }
 
-.skip-link:focus {
-  position: fixed;
-  top: var(--space-4);
-  left: var(--space-4);
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
   z-index: 9999;
+  background: var(--color-accent);
+  color: #fff;
   padding: var(--space-2) var(--space-4);
-  background: var(--color-accent);
-  color: #fff;
-  border-radius: var(--radius-md);
-  width: auto; height: auto;
-  clip: unset;
-}
-
-/* === BUTTONS === */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
   font-size: var(--text-sm);
-  font-family: var(--font-body);
   font-weight: 600;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  white-space: nowrap;
-  text-decoration: none;
-  border: 2px solid transparent;
+  transform: translateY(-200%);
+  transition: transform var(--transition-interactive);
 }
 
-.btn-accent {
-  background: var(--color-accent);
-  color: #fff;
-  border-color: var(--color-accent);
-}
-.btn-accent:hover {
-  background: var(--color-accent-hover);
-  border-color: var(--color-accent-hover);
+.skip-link:focus {
+  transform: translateY(0);
 }
 
-.btn-primary {
-  background: var(--color-primary);
-  color: #fff;
-  border-color: var(--color-primary);
-}
-.btn-primary:hover { opacity: 0.88; }
+/* ─────────────────────────────────────────────
+   PERFORMANCE
+   ───────────────────────────────────────────── */
 
-.btn-ghost {
-  background: transparent;
-  color: var(--color-text);
-  border-color: var(--color-border);
-}
-.btn-ghost:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
-
-.btn-ghost-inv {
-  background: transparent;
-  color: #fff;
-  border-color: rgba(255,255,255,0.35);
-}
-.btn-ghost-inv:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+/* Reduce paint cost on long lists and card grids */
+.team-grid article,
+.articles-grid article,
+.practice-grid article {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 420px;
 }
