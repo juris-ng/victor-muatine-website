@@ -505,7 +505,7 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="practice-areas.html">Practice Areas</a>
-        <a href="team.html" style="color:var(--color-accent);">Our Team</a>
+        <a href="team.html" aria-current="page">Our Team</a>
         <a href="insights.html">Insights</a>
         <a href="contact.html">Contact</a>
       </nav>
@@ -868,35 +868,69 @@
       });
     }
 
-    // ─── MAIN LOAD ───
-    async function loadTeam() {
-      try {
-        const res = await fetch('./data/team.json');
-        if (!res.ok) throw new Error('Failed to load');
-        const data = await res.json();
-        const all = data.team || [];
-
-        if (all.length === 0) {
-          document.getElementById('leadGrid').innerHTML = '<p style="color:var(--color-text-muted)">No team data found.</p>';
-          document.getElementById('teamGrid').innerHTML = '<div class="team-empty"><p>Team information coming soon.</p></div>';
-          return;
-        }
-
-        // First member = Lead / Founding Partner spotlight
-        renderLead(all[0], 0);
-
-        // Rest = grid members
-        const rest = all.slice(1);
-        buildFilter(rest);
-        initFilter(rest);
-        renderGrid(rest, 'all');
-
-      } catch (err) {
-        console.error(err);
-        document.getElementById('leadGrid').innerHTML = '<p style="color:var(--color-error,#d16363)">Could not load team data.</p>';
-        document.getElementById('teamGrid').innerHTML = '<div class="team-empty" style="color:var(--color-error,#d16363)"><p>Could not load team data. Please try again later.</p></div>';
-        document.getElementById('teamCount').textContent = '';
+    // ─── INLINE TEAM DATA (no fetch needed — works with file:// protocol) ───
+    const TEAM_DATA = [
+      {
+        name: "Victor Muatine",
+        role: "Founding Partner",
+        area: "Dispute Resolution, Family Law, Criminal Defence, Constitutional Law",
+        bio: "Victor is the founding partner of Victor Muatine & Co. Advocates with over a decade of experience in litigation, commercial law, and constitutional matters. His fearless courtroom advocacy came to national attention when a video of his argument at the Kisumu Children's Court went viral — and that standard of preparation and conviction is what he brings to every case.",
+        quote: "A lawyer who is afraid of the courtroom is like a surgeon afraid of blood. We come prepared. We come focused. We come to win.",
+        education: "LLB, University of Nairobi · KSLP Diploma",
+        photo: ""
+      },
+      {
+        name: "Amina Odhiambo",
+        role: "Senior Associate",
+        area: "Family & Child Law",
+        bio: "Amina specialises in family law including divorce, custody, adoption, and child maintenance matters. She brings both legal precision and genuine compassion to every client she represents.",
+        education: "LLB, Kenyatta University",
+        photo: ""
+      },
+      {
+        name: "Brian Kamau",
+        role: "Associate",
+        area: "Commercial & Disputes",
+        bio: "Brian handles commercial litigation, contract disputes, and debt recovery matters for corporate and individual clients across Nairobi and beyond.",
+        education: "LLB, University of Nairobi",
+        photo: ""
+      },
+      {
+        name: "Grace Wanjiru",
+        role: "Associate",
+        area: "Criminal Defence",
+        bio: "Grace represents clients in criminal matters ranging from traffic offences to serious felonies in the High Court. Her thorough preparation and case strategy consistently deliver for her clients.",
+        education: "LLB, Mount Kenya University",
+        photo: ""
+      },
+      {
+        name: "David Mutua",
+        role: "Associate",
+        area: "Corporate & Employment",
+        bio: "David advises companies on employment law compliance, contracts, and corporate governance. He also represents employees in wrongful dismissal and ELRC proceedings.",
+        education: "LLB, Moi University",
+        photo: ""
       }
+    ];
+
+    // ─── MAIN INIT ───
+    function loadTeam() {
+      const all = TEAM_DATA;
+
+      if (all.length === 0) {
+        document.getElementById('leadGrid').innerHTML = '<p style="color:var(--color-text-muted)">No team data found.</p>';
+        document.getElementById('teamGrid').innerHTML = '<div class="team-empty"><p>Team information coming soon.</p></div>';
+        return;
+      }
+
+      // First member = Lead / Founding Partner spotlight
+      renderLead(all[0], 0);
+
+      // Rest = grid members
+      const rest = all.slice(1);
+      buildFilter(rest);
+      initFilter(rest);
+      renderGrid(rest, 'all');
     }
 
     loadTeam();
