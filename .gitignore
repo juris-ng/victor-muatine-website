@@ -1,0 +1,10 @@
+# Dependencies
+node_modules/
+
+# Built output — Netlify builds this itself
+_site/
+
+# Windows / Editor
+Thumbs.db
+.DS_Store
+.vscode/

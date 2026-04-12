@@ -237,6 +237,7 @@
       box-shadow: var(--shadow-lg);
       transform: translateY(-3px);
     }
+    .article-card.hidden { display: none; }
     .article-card__img-wrap { overflow: hidden; }
     .article-card__img {
       width: 100%;
@@ -301,23 +302,7 @@
     .article-card__read svg { transition: transform var(--transition-interactive); }
     .article-card__read:hover svg { transform: translateX(3px); }
 
-    /* SKELETON LOADER */
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-    .skeleton {
-      background: linear-gradient(90deg, var(--color-surface) 25%, var(--color-surface-offset, #edeae5) 50%, var(--color-surface) 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s ease-in-out infinite;
-      border-radius: var(--radius-xl);
-    }
-    .skeleton-card {
-      height: 320px;
-      border: 1px solid var(--color-border);
-    }
-
-    /* EMPTY / ERROR STATE */
+    /* EMPTY STATE */
     .posts-empty {
       grid-column: 1 / -1;
       text-align: center;
@@ -393,9 +378,9 @@
       border-radius: var(--radius-md);
       cursor: pointer;
       white-space: nowrap;
-      transition: background var(--transition-interactive);
+      transition: opacity var(--transition-interactive);
     }
-    .newsletter-btn:hover { background: var(--color-accent-hover); }
+    .newsletter-btn:hover { opacity: 0.88; }
     .newsletter-disclaimer {
       font-size: var(--text-xs);
       color: rgba(255,255,255,0.3);
@@ -486,25 +471,22 @@
       .newsletter-input-row { flex-direction: column; }
     }
   </style>
+
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="Victor Muatine &amp; Co. Advocates" />
-  <meta property="og:title"       content="Victor Muatine & Co. Advocates — Fearless Legal Advocacy in Kenya" />
-  <meta property="og:description" content="Victor Muatine & Co. is a boutique Kenyan law firm offering fearless advocacy in dispute resolution, family law, commercial litigation, criminal defence, construction, and employment law." />
-  <meta property="og:url"         content="https://victormuatine.co.ke/" />
+  <meta property="og:title"       content="Insights | Victor Muatine &amp; Co. Advocates" />
+  <meta property="og:description" content="Legal insights, analysis and commentary from Victor Muatine & Co. Advocates — Kenyan law made accessible." />
+  <meta property="og:url"         content="https://victormuatine.co.ke/insights/" />
   <meta property="og:image"       content="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&q=80" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height"content="800" />
-  <meta property="og:image:alt"   content="Victor Muatine &amp; Co. Advocates — Kenya Law Firm" />
   <meta property="og:locale"      content="en_KE" />
-
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:site"        content="@MuatineLegal" />
-  <meta name="twitter:title"       content="Victor Muatine & Co. Advocates — Fearless Legal Advocacy in Kenya" />
-  <meta name="twitter:description" content="Victor Muatine & Co. is a boutique Kenyan law firm offering fearless advocacy in dispute resolution, family law, commercial litigation, criminal defence, construction, and employment law." />
+  <meta name="twitter:title"       content="Insights | Victor Muatine &amp; Co. Advocates" />
+  <meta name="twitter:description" content="Legal insights, analysis and commentary from Victor Muatine & Co. Advocates — Kenyan law made accessible." />
   <meta name="twitter:image"       content="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&q=80" />
-
-  <link rel="canonical" href="https://victormuatine.co.ke/" />
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="canonical" href="https://victormuatine.co.ke/insights/" />
 </head>
 <body>
 
@@ -513,8 +495,8 @@
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="container navbar__inner">
-      <a href="index.html" class="navbar__logo" aria-label="Victor Muatine & Co. Advocates Home">
-        <svg width="160" height="38" viewBox="0 0 160 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <a href="index.html" class="navbar__logo" aria-label="Victor Muatine & Co. Advocates — Home">
+        <svg width="160" height="38" viewBox="0 0 160 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="18" cy="8" r="2" fill="#c9952a"/>
           <line x1="18" y1="10" x2="18" y2="30" stroke="#c9952a" stroke-width="1.5"/>
           <line x1="10" y1="13" x2="26" y2="13" stroke="#c9952a" stroke-width="1.5"/>
@@ -535,7 +517,7 @@
       </nav>
       <div class="navbar__actions">
         <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
         </button>
@@ -552,7 +534,7 @@
     <a href="about.html">About</a>
     <a href="practice-areas.html">Practice Areas</a>
     <a href="team.html">Our Team</a>
-    <a href="insights.html">Insights</a>
+    <a href="insights.html" aria-current="page">Insights</a>
     <a href="contact.html">Contact</a>
     <a href="contact.html" class="btn btn-accent" style="margin-top:var(--space-6);text-align:center;justify-content:center;">Book Consultation</a>
   </nav>
@@ -560,11 +542,11 @@
   <main id="main">
 
     <!-- PAGE HERO -->
-    <section class="page-hero">
+    <section class="page-hero" aria-label="Insights hero">
       <div class="container">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="index.html">Home</a>
-          <span>›</span>
+          <span aria-hidden="true">›</span>
           <span style="color:rgba(255,255,255,0.6);">Insights</span>
         </nav>
         <p class="page-hero__eyebrow">Legal Knowledge</p>
@@ -574,22 +556,64 @@
     </section>
 
     <!-- CATEGORY FILTER -->
-    <nav class="cat-filter" aria-label="Filter articles by category" id="catFilter">
+    <nav class="cat-filter" aria-label="Filter articles by category">
       <div class="container cat-filter__inner" id="catFilterInner">
         <button class="cat-btn active" data-cat="all">All Insights</button>
-        <!-- categories injected dynamically -->
+        {% for cat in collections.articles | map("data.category") | unique %}
+          <button class="cat-btn" data-cat="{{ cat | catSlug }}">{{ cat }}</button>
+        {% endfor %}
       </div>
     </nav>
 
     <!-- FEATURED ARTICLE -->
-    <section class="featured-section" aria-label="Featured article" id="featuredSection">
+    {% set featured = null %}
+    {% for article in collections.articles %}
+      {% if article.data.featured and not featured %}
+        {% set featured = article %}
+      {% endif %}
+    {% endfor %}
+    {% if not featured and collections.articles.length > 0 %}
+      {% set featured = collections.articles[0] %}
+    {% endif %}
+
+    {% if featured %}
+    <section class="featured-section" aria-label="Featured article">
       <div class="container">
         <span class="section-label">Featured</span>
-        <div class="featured-article" id="featuredArticle">
-          <!-- injected dynamically -->
+        <div class="featured-article">
+          <div class="featured-article__img-wrap">
+            <img
+              src="{{ featured.data.featuredImage or 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=900&q=80' }}"
+              alt="{{ featured.data.title }}"
+              width="900" height="600"
+              loading="eager"
+              class="featured-article__img"
+            />
+          </div>
+          <div class="featured-article__content">
+            <span class="featured-label">Featured</span>
+            <span class="featured-article__cat">{{ featured.data.category }}</span>
+            <h2 class="featured-article__title">
+              <a href="{{ featured.url }}">{{ featured.data.title }}</a>
+            </h2>
+            <p class="featured-article__excerpt">{{ featured.data.excerpt }}</p>
+            <div class="featured-article__meta">
+              <span>
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                {{ featured.data.readTime }}
+              </span>
+              <span>{{ featured.data.date | postDate }}</span>
+              <span>{{ featured.data.author }}</span>
+            </div>
+            <a href="{{ featured.url }}" class="featured-article__read-more">
+              Read the full article
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>
+    {% endif %}
 
     <!-- ARTICLES GRID -->
     <section class="articles-section" aria-label="All articles">
@@ -599,18 +623,53 @@
             <span class="section-label">All Articles</span>
             <h2>Latest Insights</h2>
           </div>
-          <span class="article-count" id="articleCount">Loading…</span>
+          <span class="article-count" id="articleCount">{{ collections.articles.length }} articles</span>
         </div>
         <div class="articles-grid" id="articlesGrid">
-          <!-- skeleton while loading -->
-          <div class="skeleton skeleton-card"></div>
-          <div class="skeleton skeleton-card"></div>
-          <div class="skeleton skeleton-card"></div>
+          {% set featuredUrl = featured.url if featured else "" %}
+          {% if collections.articles.length > 0 %}
+            {% for article in collections.articles %}
+              {% if article.url != featuredUrl %}
+              <article class="article-card" data-cat="{{ article.data.category | catSlug }}">
+                <div class="article-card__img-wrap">
+                  <img
+                    src="{{ article.data.featuredImage or 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=75' }}"
+                    alt="{{ article.data.title }}"
+                    width="600" height="338"
+                    loading="lazy"
+                    class="article-card__img"
+                  />
+                </div>
+                <div class="article-card__body">
+                  <span class="article-card__cat">{{ article.data.category }}</span>
+                  <h3 class="article-card__title">
+                    <a href="{{ article.url }}">{{ article.data.title }}</a>
+                  </h3>
+                  <p class="article-card__excerpt">{{ article.data.excerpt }}</p>
+                </div>
+                <div class="article-card__footer">
+                  <div class="article-card__meta">
+                    <span>{{ article.data.date | postDate }}</span>
+                    <span>·</span>
+                    <span>{{ article.data.readTime }}</span>
+                  </div>
+                  <a href="{{ article.url }}" class="article-card__read" aria-label="Read {{ article.data.title }}">
+                    Read
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </article>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <div class="posts-empty">
+              <p>No articles published yet. Check back soon.</p>
+            </div>
+          {% endif %}
         </div>
       </div>
     </section>
-
-    <!-- YOUTUBE SECTION -->
+        <!-- YOUTUBE SECTION -->
     <section class="youtube-section" aria-label="Video content from publaw">
       <div class="container">
         <div class="youtube-header">
@@ -626,7 +685,7 @@
               <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=70" alt="Victor Muatine on YouTube — Know Your Rights" width="600" height="338" loading="lazy" />
               <div class="yt-card__play">
                 <div class="yt-card__play-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 </div>
               </div>
             </div>
@@ -640,7 +699,7 @@
               <img src="https://images.unsplash.com/photo-1591189863430-ab87e120f312?w=600&q=70" alt="Victor Muatine on family law" width="600" height="338" loading="lazy" />
               <div class="yt-card__play">
                 <div class="yt-card__play-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 </div>
               </div>
             </div>
@@ -654,7 +713,7 @@
               <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=70" alt="Victor Muatine on contracts" width="600" height="338" loading="lazy" />
               <div class="yt-card__play">
                 <div class="yt-card__play-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 </div>
               </div>
             </div>
@@ -705,7 +764,7 @@
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <svg width="160" height="38" viewBox="0 0 160 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="160" height="38" viewBox="0 0 160 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <circle cx="18" cy="8" r="2" fill="#c9952a"/>
             <line x1="18" y1="10" x2="18" y2="30" stroke="#c9952a" stroke-width="1.5"/>
             <line x1="10" y1="13" x2="26" y2="13" stroke="#c9952a" stroke-width="1.5"/>
@@ -743,30 +802,30 @@
         <div class="footer__col">
           <h4>Contact</h4>
           <div class="footer__contact-item">
-            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <span>Nairobi &amp; Kitui, Kenya</span>
           </div>
           <div class="footer__contact-item">
-            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.3 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.3 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             <span>+254 700 000 000</span>
           </div>
           <div class="footer__contact-item">
-            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <span>info@victormuatine.co.ke</span>
           </div>
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__copy">© 2026 Victor Muatine &amp; Co. Advocates. All rights reserved. | Regulated by the Law Society of Kenya.</p>
+        <p class="footer__copy">&copy; 2026 Victor Muatine &amp; Co. Advocates. All rights reserved. | Regulated by the Law Society of Kenya.</p>
         <div class="footer__socials">
-          <a href="https://x.com/MuatineLegal" target="_blank" rel="noopener noreferrer" aria-label="X">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.265 5.638zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <a href="https://x.com/MuatineLegal" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.265 5.638zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </a>
           <a href="https://www.instagram.com/publ_aw/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
           </a>
           <a href="https://www.youtube.com/@publaw" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
           </a>
         </div>
       </div>
@@ -776,269 +835,55 @@
   <script src="./js/main.js" defer></script>
 
   <script>
-    // ─── IMAGE MAP by category (used for cards without a custom image) ───
-    const CAT_IMAGES = {
-      'Family Law':        'https://images.unsplash.com/photo-1591189863430-ab87e120f312?w=600&q=75',
-      'Employment Law':    'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=600&q=75',
-      'Property & Land':   'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75',
-      'Criminal Law':      'https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&q=75',
-      'Commercial Law':    'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=75',
-      'Constitutional Law':'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=75',
-    };
-    const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=75';
+    // ─── CATEGORY FILTER (client-side show/hide) ───
+    const catFilterInner = document.getElementById('catFilterInner');
+    const articlesGrid   = document.getElementById('articlesGrid');
+    const articleCount   = document.getElementById('articleCount');
+    const allCards       = Array.from(articlesGrid ? articlesGrid.querySelectorAll('.article-card') : []);
 
-    // ─── SLUG helper for category filter ───
-    function toSlug(str) {
-      return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    }
-
-    // ─── FORMAT date ───
-    function fmtDate(iso) {
-      return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-    }
-
-    // ─── INLINE POSTS DATA (no fetch needed — works with file:// protocol) ───
-    const POSTS_DATA = [
-      {
-        id: "4",
-        title: "How Long Does a Divorce Actually Take in Kenya? A Step-by-Step Guide",
-        category: "Family Law",
-        author: "Victor Muatine",
-        date: "2026-04-02",
-        readtime: "6 min",
-        excerpt: "From filing the petition to receiving your decree absolute — the Kenyan divorce process explained clearly, including what can speed it up or slow it down.",
-        published: true,
-        featured: true,
-        slug: "article-divorce-kenya.html",
-        image: "https://images.unsplash.com/photo-1591189863430-ab87e120f312?w=900&q=80"
-      },
-      {
-        id: "2",
-        title: "Fired Without Cause? Here Is What the Employment Act Says You Are Owed",
-        category: "Employment Law",
-        author: "Victor Muatine",
-        date: "2026-03-24",
-        readtime: "7 min",
-        excerpt: "Wrongful dismissal is one of the most common legal complaints in Kenya. Learn what compensation and remedies the Employment Act 2007 entitles you to.",
-        published: true,
-        featured: false,
-        slug: "article-employment-dismissal.html",
-        image: "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=600&q=75"
-      },
-      {
-        id: "3",
-        title: "Before You Buy Land in Kenya: The 7 Due Diligence Steps You Cannot Skip",
-        category: "Property & Land",
-        author: "Victor Muatine",
-        date: "2026-03-15",
-        readtime: "9 min",
-        excerpt: "Land fraud is rampant in Kenya. These seven steps will protect you before you part with a single shilling.",
-        published: true,
-        featured: false,
-        slug: "article-buy-land-kenya.html",
-        image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75"
-      },
-      {
-        id: "1",
-        title: "Know Your Rights When Arrested in Kenya",
-        category: "Constitutional Law",
-        author: "Victor Muatine",
-        date: "2026-03-28",
-        readtime: "8 min",
-        excerpt: "Understanding your constitutional rights when law enforcement detains you is critical. The Constitution of Kenya 2010 provides strong protections every citizen must know.",
-        published: true,
-        featured: false,
-        slug: null,
-        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=900&q=80"
-      },
-      {
-        id: "5",
-        title: "Bail in Kenya: How It Works, Who Gets It, and Why You Need a Lawyer From the First Hearing",
-        category: "Criminal Law",
-        author: "Victor Muatine",
-        date: "2026-03-08",
-        readtime: "5 min",
-        excerpt: "Many Kenyans sit in remand custody for months — not because they cannot access bail, but because they did not have representation at the crucial first hearing.",
-        published: true,
-        featured: false,
-        slug: null,
-        image: "https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&q=75"
-      },
-      {
-        id: "6",
-        title: "Why a Handshake Deal Is Not Enough: Protecting Your Business With Proper Contracts",
-        category: "Commercial Law",
-        author: "Victor Muatine",
-        date: "2026-02-28",
-        readtime: "6 min",
-        excerpt: "Oral agreements are enforceable in Kenya — but proving them in court is a nightmare. Here is why every business transaction needs a written contract.",
-        published: true,
-        featured: false,
-        slug: null,
-        image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=75"
-      },
-      {
-        id: "7",
-        title: "Article 47 Explained: Your Right to Fair Administrative Action",
-        category: "Constitutional Law",
-        author: "Victor Muatine",
-        date: "2026-02-14",
-        readtime: "8 min",
-        excerpt: "Government agencies make decisions that affect your life every day. Article 47 gives you the right to challenge those decisions — but most Kenyans do not know it exists.",
-        published: true,
-        featured: false,
-        slug: null,
-        image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=75"
-      }
-    ];
-
-    // ─── RENDER FEATURED ───
-    function renderFeatured(post) {
-      const img = post.image || CAT_IMAGES[post.category] || DEFAULT_IMAGE;
-      const section = document.getElementById('featuredSection');
-      const wrap = document.getElementById('featuredArticle');
-      if (!post) { section.style.display = 'none'; return; }
-      const href = post.slug || 'insights.html';
-      wrap.innerHTML = `
-        <div class="featured-article__img-wrap">
-          <img src="${img}" alt="${post.title}" width="900" height="600" loading="eager" class="featured-article__img" />
-        </div>
-        <div class="featured-article__content">
-          <span class="featured-article__cat">${post.category}</span>
-          <h2 class="featured-article__title">
-            <a href="${href}">${post.title}</a>
-          </h2>
-          <p class="featured-article__excerpt">${post.excerpt}</p>
-          <div class="featured-article__meta">
-            <span>
-              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-              ${post.readtime}
-            </span>
-            <span>${fmtDate(post.date)}</span>
-            <span>${post.author}</span>
-          </div>
-          <a href="${href}" class="featured-article__read-more">
-            Read the full article
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>`;
-    }
-
-    // ─── RENDER GRID CARDS ───
-    function renderGrid(posts, activeCat) {
-      const grid = document.getElementById('articlesGrid');
-      const countEl = document.getElementById('articleCount');
-
-      const filtered = activeCat === 'all'
-        ? posts
-        : posts.filter(p => toSlug(p.category) === activeCat);
-
-      countEl.textContent = `Showing ${filtered.length} article${filtered.length !== 1 ? 's' : ''}`;
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div class="posts-empty"><p>No articles in this category yet. Check back soon.</p></div>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(post => {
-        const img = post.image || CAT_IMAGES[post.category] || DEFAULT_IMAGE;
-        const slug = toSlug(post.category);
-        const href = post.slug || '#';
-        return `
-          <article class="article-card" data-cat="${slug}">
-            <div class="article-card__img-wrap">
-              <img src="${img}" alt="${post.title}" width="600" height="338" loading="lazy" class="article-card__img" />
-            </div>
-            <div class="article-card__body">
-              <span class="article-card__cat">${post.category}</span>
-              <h3 class="article-card__title"><a href="${href}">${post.title}</a></h3>
-              <p class="article-card__excerpt">${post.excerpt}</p>
-            </div>
-            <div class="article-card__footer">
-              <div class="article-card__meta">
-                <span>${fmtDate(post.date)}</span>
-                <span>·</span>
-                <span>${post.readtime}</span>
-              </div>
-              <a href="${href}" class="article-card__read">
-                Read
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-            </div>
-          </article>`;
-      }).join('');
-    }
-
-    // ─── BUILD CATEGORY FILTER from actual post data ───
-    function buildCategoryFilter(posts) {
-      const cats = [...new Set(posts.map(p => p.category))];
-      const inner = document.getElementById('catFilterInner');
-      cats.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'cat-btn';
-        btn.dataset.cat = toSlug(cat);
-        btn.textContent = cat;
-        inner.appendChild(btn);
-      });
-    }
-
-    // ─── CATEGORY FILTER EVENTS ───
-    function initCatFilter(posts) {
-      const inner = document.getElementById('catFilterInner');
-      inner.addEventListener('click', e => {
+    if (catFilterInner) {
+      catFilterInner.addEventListener('click', e => {
         const btn = e.target.closest('.cat-btn');
         if (!btn) return;
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+
+        // Update active state
+        catFilterInner.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        renderGrid(posts, btn.dataset.cat);
+
+        const cat = btn.dataset.cat;
+
+        // Show/hide cards
+        let visible = 0;
+        allCards.forEach(card => {
+          const match = cat === 'all' || card.dataset.cat === cat;
+          card.classList.toggle('hidden', !match);
+          if (match) visible++;
+        });
+
+        // Update count
+        if (articleCount) {
+          articleCount.textContent = `Showing ${visible} article${visible !== 1 ? 's' : ''}`;
+        }
       });
     }
 
-    // ─── MAIN INIT (no fetch — inline data works with file:// protocol) ───
-    function loadInsights() {
-      const grid = document.getElementById('articlesGrid');
-      const featuredSection = document.getElementById('featuredSection');
-
-      // Only published posts, sorted newest first
-      const posts = POSTS_DATA
-        .filter(p => p.published)
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      if (posts.length === 0) {
-        featuredSection.style.display = 'none';
-        grid.innerHTML = `<div class="posts-empty"><p>No articles published yet. Check back soon.</p></div>`;
-        document.getElementById('articleCount').textContent = '0 articles';
-        return;
-      }
-
-      // Featured = first featured post, or newest published
-      const featured = posts.find(p => p.featured) || posts[0];
-      renderFeatured(featured);
-
-      // Grid = all posts except featured
-      const gridPosts = posts.filter(p => p.id !== featured.id);
-      buildCategoryFilter(gridPosts);
-      initCatFilter(gridPosts);
-      renderGrid(gridPosts, 'all');
-    }
-
-    loadInsights();
-
     // ─── NEWSLETTER ───
-    const nlForm = document.getElementById('newsletterForm');
+    const nlForm    = document.getElementById('newsletterForm');
     const nlMessage = document.getElementById('nlMessage');
-    nlForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const email = document.getElementById('nlEmail').value.trim();
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        nlMessage.textContent = 'Please enter a valid email address.';
-        nlMessage.style.color = '#e74c3c';
-        return;
-      }
-      nlMessage.textContent = '✓ You\'re subscribed! Check your inbox for a confirmation.';
-      nlMessage.style.color = '#c9952a';
-      document.getElementById('nlEmail').value = '';
-    });
+    if (nlForm) {
+      nlForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const email = document.getElementById('nlEmail').value.trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          nlMessage.textContent = 'Please enter a valid email address.';
+          nlMessage.style.color = '#e74c3c';
+          return;
+        }
+        nlMessage.textContent = '✓ You\'re subscribed! Check your inbox for a confirmation.';
+        nlMessage.style.color = '#c9952a';
+        document.getElementById('nlEmail').value = '';
+      });
+    }
   </script>
 
 </body>

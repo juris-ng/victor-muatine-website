@@ -2,56 +2,139 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: assets/images
-public_folder: /assets/images
+# Allows editorial workflow (Draft → Review → Published)
+publish_mode: editorial_workflow
+
+# Where uploaded images go
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
 
 collections:
 
-  # ── INSIGHTS ──────────────────────────────────────────────────────────────
-  # Writes directly to data/posts.json so insights.html reads it automatically.
-  # No markdown files. No build step needed.
-  - name: "posts"
-    label: "Insights / Articles"
-    files:
-      - label: "All Articles"
-        name: "posts"
-        file: "data/posts.json"
-        fields:
-          - label: "Articles"
-            name: "posts"
-            widget: "list"
-            summary: "{{fields.title}} — {{fields.category}}"
-            fields:
-              - { label: "ID",          name: id,        widget: string,   hint: "Unique ID e.g. post-004" }
-              - { label: "Title",       name: title,     widget: string }
-              - { label: "Category",    name: category,  widget: select,   options: ["Family Law","Commercial Law","Criminal Law","Employment Law","Constitutional Law","Property & Land","Dispute Resolution"] }
-              - { label: "Author",      name: author,    widget: string,   default: "Victor Muatine" }
-              - { label: "Date",        name: date,      widget: datetime, date_format: "YYYY-MM-DD", time_format: false }
-              - { label: "Read Time",   name: readtime,  widget: string,   default: "5 min", hint: "e.g. 5 min" }
-              - { label: "Excerpt",     name: excerpt,   widget: text }
-              - { label: "Article Slug (URL)", name: slug, widget: string, hint: "e.g. article-divorce-kenya.html — must match filename exactly", required: false }
-              - { label: "Cover Image URL", name: image, widget: string,   hint: "Paste an image URL or leave blank", required: false }
-              - { label: "Featured",    name: featured,  widget: boolean,  default: false,  hint: "Show as featured article on insights page" }
-              - { label: "Published",   name: published, widget: boolean,  default: true }
+  # ── ARTICLES ─────────────────────────────────────────────
+  - name: "articles"
+    label: "Insights & Articles"
+    label_singular: "Article"
+    folder: "_articles"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "insights/{{slug}}/"
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        hint: "The article headline. Be specific — avoid generic titles."
 
-  # ── TEAM ──────────────────────────────────────────────────────────────────
-  # Writes directly to data/team.json so team.html reads it automatically.
+      - label: "Excerpt"
+        name: "excerpt"
+        widget: "text"
+        hint: "A 1-2 sentence summary shown on the Insights page. Max 200 characters."
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Constitutional Law"
+          - "Family Law"
+          - "Employment Law"
+          - "Commercial Law"
+          - "Criminal Law"
+          - "Property Law"
+          - "Construction Law"
+          - "Dispute Resolution"
+          - "Legal News"
+        hint: "Choose the most relevant category."
+
+      - label: "Author"
+        name: "author"
+        widget: "string"
+        default: "Victor Muatine"
+
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "DD MMMM YYYY"
+        time_format: false
+        hint: "The date this article goes live."
+
+      - label: "Read Time"
+        name: "readTime"
+        widget: "string"
+        default: "5 min read"
+        hint: "e.g. '4 min read' — estimate 200 words per minute."
+
+      - label: "Featured Article"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Toggle ON to show this article in the large featured slot on the Insights page. Only one article should be featured at a time."
+
+      - label: "Featured Image"
+        name: "featuredImage"
+        widget: "image"
+        required: false
+        hint: "Upload a cover image (recommended: 1200×800px, JPG or WebP)."
+
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "layouts/article.njk"
+
+      - label: "Article Body"
+        name: "body"
+        widget: "markdown"
+        hint: "Write the full article here. Use ## for section headings, **bold** for emphasis."
+
+  # ── TEAM MEMBERS ─────────────────────────────────────────
   - name: "team"
     label: "Team Members"
-    files:
-      - label: "All Team Members"
-        name: "team"
-        file: "data/team.json"
-        fields:
-          - label: "Members"
-            name: "members"
-            widget: "list"
-            summary: "{{fields.name}} — {{fields.role}}"
-            fields:
-              - { label: "Name",         name: name,  widget: string }
-              - { label: "Role / Title", name: role,  widget: string }
-              - { label: "Practice Area", name: area, widget: string }
-              - { label: "Bio",          name: bio,   widget: text }
-              - { label: "Photo URL",    name: photo, widget: string, hint: "Paste image URL or upload path e.g. /assets/images/victor.jpg" }
-              - { label: "LinkedIn URL", name: linkedin, widget: string, required: false }
-              - { label: "Visible",      name: visible, widget: boolean, default: true }
+    label_singular: "Team Member"
+    folder: "_team"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Full Name"
+        name: "title"
+        widget: "string"
+
+      - label: "Role / Position"
+        name: "role"
+        widget: "string"
+        hint: "e.g. 'Senior Associate' or 'Managing Partner'"
+
+      - label: "Photo"
+        name: "photo"
+        widget: "image"
+        required: false
+
+      - label: "Bio"
+        name: "body"
+        widget: "markdown"
+        hint: "Short professional biography."
+
+      - label: "Practice Areas"
+        name: "practiceAreas"
+        widget: "list"
+        hint: "List the areas this person specialises in."
+
+      - label: "Email"
+        name: "email"
+        widget: "string"
+        required: false
+
+      - label: "LinkedIn"
+        name: "linkedin"
+        widget: "string"
+        required: false
+
+      - label: "Display Order"
+        name: "order"
+        widget: "number"
+        default: 99
+        hint: "Lower numbers appear first. Victor should be 1."
+
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "layouts/team-member.njk"

@@ -1,0 +1,16 @@
+[build]
+  command = "npx @11ty/eleventy"
+  publish = "_site"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Enable Netlify Identity for CMS login
+[[plugins]]
+  package = "@netlify/plugin-sitemap"
+
+# Redirect /admin to the CMS
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
