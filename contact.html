@@ -505,14 +505,10 @@
                 <p>We typically respond within 2 business hours. All submissions are treated in strict confidence.</p>
               </div>
 
-              <!-- ─── CHANGE 1: added name="contact" netlify netlify-honeypot="bot-field" ─── -->
-              <form id="contact-form" name="contact" netlify netlify-honeypot="bot-field" novalidate aria-label="Contact form">
+              <!-- ✅ CHANGE 1: removed netlify attributes -->
+              <form id="contact-form" novalidate aria-label="Contact form">
 
-                <!-- ─── CHANGE 2: required hidden inputs for Netlify Forms ─── -->
-                <input type="hidden" name="form-name" value="contact" />
-                <p style="display:none;">
-                  <label>Do not fill this field: <input name="bot-field" /></label>
-                </p>
+                <!-- ✅ CHANGE 2: removed hidden netlify inputs -->
 
                 <div class="form-row">
                   <div class="form-group">
@@ -753,7 +749,6 @@
     </div>
 
   </main>
-
   <!-- FOOTER -->
   <footer class="footer" aria-label="Site footer">
     <div class="container">
@@ -804,8 +799,8 @@
 
   <script src="./js/main.js" defer></script>
 
+  <!-- ✅ CHANGE 3: Formspree submit handler -->
   <script>
-    // Office tab switcher
     function switchOffice(id, btn) {
       document.querySelectorAll('.office-tab').forEach(t => {
         t.classList.remove('active');
@@ -817,8 +812,6 @@
       document.getElementById('office-' + id).classList.add('active');
     }
 
-    // ─── CHANGE 3: fetch-based submit so Netlify captures the data
-    //              AND we show our custom success state ───
     document.getElementById('contact-form').addEventListener('submit', async function (e) {
       e.preventDefault();
 
@@ -832,16 +825,19 @@
       btn.textContent = 'Sending…';
 
       try {
-        await fetch('/', {
+        const res = await fetch('https://formspree.io/f/mwvaepze', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(new FormData(this)).toString()
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(this)
         });
 
-        // Show success state
-        this.style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-        document.querySelector('.form-card__header').style.display = 'none';
+        if (res.ok) {
+          this.style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+          document.querySelector('.form-card__header').style.display = 'none';
+        } else {
+          throw new Error('failed');
+        }
 
       } catch (err) {
         btn.disabled = false;
