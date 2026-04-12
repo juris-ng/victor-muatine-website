@@ -137,7 +137,6 @@
       border-radius: var(--radius-full);
       white-space: nowrap;
     }
-    /* Lead skeleton */
     .lead-photo-skeleton {
       width: 100%;
       aspect-ratio: 3/4;
@@ -466,20 +465,18 @@
   <meta property="og:site_name"   content="Victor Muatine &amp; Co. Advocates" />
   <meta property="og:title"       content="Victor Muatine & Co. Advocates — Fearless Legal Advocacy in Kenya" />
   <meta property="og:description" content="Victor Muatine & Co. is a boutique Kenyan law firm offering fearless advocacy in dispute resolution, family law, commercial litigation, criminal defence, construction, and employment law." />
-  <meta property="og:url"         content="https://victormuatine.co.ke/" />
+  <meta property="og:url"         content="https://victormuatine.co.ke/team.html" />
   <meta property="og:image"       content="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&q=80" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height"content="800" />
   <meta property="og:image:alt"   content="Victor Muatine &amp; Co. Advocates — Kenya Law Firm" />
   <meta property="og:locale"      content="en_KE" />
-
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:site"        content="@MuatineLegal" />
   <meta name="twitter:title"       content="Victor Muatine & Co. Advocates — Fearless Legal Advocacy in Kenya" />
   <meta name="twitter:description" content="Victor Muatine & Co. is a boutique Kenyan law firm offering fearless advocacy in dispute resolution, family law, commercial litigation, criminal defence, construction, and employment law." />
   <meta name="twitter:image"       content="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&q=80" />
-
-  <link rel="canonical" href="https://victormuatine.co.ke/" />
+  <link rel="canonical" href="https://victormuatine.co.ke/team.html" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
 </head>
 <body>
@@ -557,7 +554,7 @@
       </div>
     </nav>
 
-    <!-- LEAD PARTNER SPOTLIGHT — loaded from team.json -->
+    <!-- LEAD PARTNER SPOTLIGHT -->
     <section class="lead-section" aria-label="Lead partner" id="leadSection">
       <div class="container">
         <div class="lead-grid" id="leadGrid">
@@ -573,7 +570,7 @@
       </div>
     </section>
 
-    <!-- FULL TEAM GRID — loaded from team.json -->
+    <!-- FULL TEAM GRID -->
     <section class="team-section" aria-label="Full team">
       <div class="container">
         <div class="team-section__header">
@@ -698,7 +695,7 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__copy">© 2026 Victor Muatine &amp; Co. Advocates. All rights reserved. | Regulated by the Law Society of Kenya.</p>
+        <p class="footer__copy">&copy; 2026 Victor Muatine &amp; Co. Advocates. All rights reserved. | Regulated by the Law Society of Kenya.</p>
         <div class="footer__socials">
           <a href="https://x.com/MuatineLegal" target="_blank" rel="noopener noreferrer" aria-label="X">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.265 5.638zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -717,7 +714,6 @@
   <script src="./js/main.js" defer></script>
 
   <script>
-    // ─── DEFAULT PHOTOS by role/area if no photo in JSON ───
     const ROLE_PHOTOS = {
       default_female: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=75',
       default_male:   'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&q=75',
@@ -741,7 +737,6 @@
       return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     }
 
-    // ─── RENDER LEAD PARTNER ───
     function renderLead(member, index) {
       const photo = getPhoto(member, index);
       const areas = member.area ? member.area.split(',').map(a => a.trim()) : [];
@@ -777,11 +772,9 @@
         </div>`;
     }
 
-    // ─── RENDER TEAM GRID ───
     function renderGrid(members, activeFilter) {
       const grid = document.getElementById('teamGrid');
       const countEl = document.getElementById('teamCount');
-
       const filtered = activeFilter === 'all'
         ? members
         : members.filter(m => {
@@ -789,9 +782,7 @@
             const areaSlug = toSlug(m.area || '');
             return roleSlug.includes(activeFilter) || areaSlug.includes(activeFilter);
           });
-
       countEl.textContent = `Showing ${filtered.length} member${filtered.length !== 1 ? 's' : ''}`;
-
       if (filtered.length === 0) {
         grid.innerHTML = `<div class="team-empty"><p>No team members found in this category.</p></div>
           <div class="team-join-card">
@@ -802,7 +793,6 @@
           </div>`;
         return;
       }
-
       const cards = filtered.map((member, i) => {
         const photo = getPhoto(member, i + 1);
         const areas = member.area ? member.area.split(',').map(a => a.trim()) : [];
@@ -834,7 +824,6 @@
             </div>
           </article>`;
       }).join('');
-
       grid.innerHTML = cards + `
         <div class="team-join-card">
           <span class="section-label" style="color:var(--color-accent);border-color:rgba(201,149,42,0.3);">We're Hiring</span>
@@ -844,7 +833,6 @@
         </div>`;
     }
 
-    // ─── BUILD FILTER from actual roles ───
     function buildFilter(members) {
       const roles = [...new Set(members.map(m => m.role))];
       const inner = document.getElementById('teamFilterInner');
@@ -857,7 +845,6 @@
       });
     }
 
-    // ─── FILTER EVENTS ───
     function initFilter(members) {
       document.getElementById('teamFilterInner').addEventListener('click', e => {
         const btn = e.target.closest('.filter-btn');
@@ -868,69 +855,37 @@
       });
     }
 
-    // ─── INLINE TEAM DATA (no fetch needed — works with file:// protocol) ───
-    const TEAM_DATA = [
-      {
-        name: "Victor Muatine",
-        role: "Founding Partner",
-        area: "Dispute Resolution, Family Law, Criminal Defence, Constitutional Law",
-        bio: "Victor is the founding partner of Victor Muatine & Co. Advocates with over a decade of experience in litigation, commercial law, and constitutional matters. His fearless courtroom advocacy came to national attention when a video of his argument at the Kisumu Children's Court went viral — and that standard of preparation and conviction is what he brings to every case.",
-        quote: "A lawyer who is afraid of the courtroom is like a surgeon afraid of blood. We come prepared. We come focused. We come to win.",
-        education: "LLB, University of Nairobi · KSLP Diploma",
-        photo: ""
-      },
-      {
-        name: "Amina Odhiambo",
-        role: "Senior Associate",
-        area: "Family & Child Law",
-        bio: "Amina specialises in family law including divorce, custody, adoption, and child maintenance matters. She brings both legal precision and genuine compassion to every client she represents.",
-        education: "LLB, Kenyatta University",
-        photo: ""
-      },
-      {
-        name: "Brian Kamau",
-        role: "Associate",
-        area: "Commercial & Disputes",
-        bio: "Brian handles commercial litigation, contract disputes, and debt recovery matters for corporate and individual clients across Nairobi and beyond.",
-        education: "LLB, University of Nairobi",
-        photo: ""
-      },
-      {
-        name: "Grace Wanjiru",
-        role: "Associate",
-        area: "Criminal Defence",
-        bio: "Grace represents clients in criminal matters ranging from traffic offences to serious felonies in the High Court. Her thorough preparation and case strategy consistently deliver for her clients.",
-        education: "LLB, Mount Kenya University",
-        photo: ""
-      },
-      {
-        name: "David Mutua",
-        role: "Associate",
-        area: "Corporate & Employment",
-        bio: "David advises companies on employment law compliance, contracts, and corporate governance. He also represents employees in wrongful dismissal and ELRC proceedings.",
-        education: "LLB, Moi University",
-        photo: ""
-      }
-    ];
-
-    // ─── MAIN INIT ───
+    // ─── CHANGE: fetch from data/team.json instead of inline hardcoded array ───
     function loadTeam() {
-      const all = TEAM_DATA;
+      fetch('./data/team.json')
+        .then(r => {
+          if (!r.ok) throw new Error('Failed to load team data');
+          return r.json();
+        })
+        .then(data => {
+          // reads "members" key — matches our updated team.json
+          const all = (data.members || []).filter(m => m.visible !== false);
 
-      if (all.length === 0) {
-        document.getElementById('leadGrid').innerHTML = '<p style="color:var(--color-text-muted)">No team data found.</p>';
-        document.getElementById('teamGrid').innerHTML = '<div class="team-empty"><p>Team information coming soon.</p></div>';
-        return;
-      }
+          if (all.length === 0) {
+            document.getElementById('leadGrid').innerHTML = '<p style="color:var(--color-text-muted)">No team data found.</p>';
+            document.getElementById('teamGrid').innerHTML = '<div class="team-empty"><p>Team information coming soon.</p></div>';
+            return;
+          }
 
-      // First member = Lead / Founding Partner spotlight
-      renderLead(all[0], 0);
+          // First member = Lead / Founding Partner spotlight
+          renderLead(all[0], 0);
 
-      // Rest = grid members
-      const rest = all.slice(1);
-      buildFilter(rest);
-      initFilter(rest);
-      renderGrid(rest, 'all');
+          // Rest = grid members
+          const rest = all.slice(1);
+          buildFilter(rest);
+          initFilter(rest);
+          renderGrid(rest, 'all');
+        })
+        .catch(err => {
+          console.error('Team load error:', err);
+          document.getElementById('leadGrid').innerHTML = '<p style="color:var(--color-text-muted);padding:2rem;">Unable to load team data.</p>';
+          document.getElementById('teamGrid').innerHTML = '<div class="team-empty"><p>Team information coming soon.</p></div>';
+        });
     }
 
     loadTeam();

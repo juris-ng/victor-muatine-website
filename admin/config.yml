@@ -2,32 +2,56 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: assets/uploads
-public_folder: /assets/uploads
+media_folder: assets/images
+public_folder: /assets/images
 
 collections:
-  - name: insights
-    label: Insights / Blog
-    folder: _posts
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Category, name: category, widget: select, options: [Family Law, Commercial Law, Criminal Law, Employment Law, Constitutional Law, "Property & Land"] }
-      - { label: Author, name: author, widget: string, default: Victor Muatine }
-      - { label: Read Time, name: readtime, widget: string, hint: "e.g. 5 min" }
-      - { label: Excerpt, name: excerpt, widget: text }
-      - { label: Body, name: body, widget: markdown }
-      - { label: Publish Date, name: date, widget: datetime }
-      - { label: Published, name: published, widget: boolean, default: true }
 
-  - name: team
-    label: Team Members
-    folder: _team
-    create: true
-    fields:
-      - { label: Name, name: name, widget: string }
-      - { label: Role, name: role, widget: string }
-      - { label: Practice Area, name: area, widget: string }
-      - { label: Bio, name: bio, widget: text }
-      - { label: Photo, name: photo, widget: image }
+  # ── INSIGHTS ──────────────────────────────────────────────────────────────
+  # Writes directly to data/posts.json so insights.html reads it automatically.
+  # No markdown files. No build step needed.
+  - name: "posts"
+    label: "Insights / Articles"
+    files:
+      - label: "All Articles"
+        name: "posts"
+        file: "data/posts.json"
+        fields:
+          - label: "Articles"
+            name: "posts"
+            widget: "list"
+            summary: "{{fields.title}} — {{fields.category}}"
+            fields:
+              - { label: "ID",          name: id,        widget: string,   hint: "Unique ID e.g. post-004" }
+              - { label: "Title",       name: title,     widget: string }
+              - { label: "Category",    name: category,  widget: select,   options: ["Family Law","Commercial Law","Criminal Law","Employment Law","Constitutional Law","Property & Land","Dispute Resolution"] }
+              - { label: "Author",      name: author,    widget: string,   default: "Victor Muatine" }
+              - { label: "Date",        name: date,      widget: datetime, date_format: "YYYY-MM-DD", time_format: false }
+              - { label: "Read Time",   name: readtime,  widget: string,   default: "5 min", hint: "e.g. 5 min" }
+              - { label: "Excerpt",     name: excerpt,   widget: text }
+              - { label: "Article Slug (URL)", name: slug, widget: string, hint: "e.g. article-divorce-kenya.html — must match filename exactly", required: false }
+              - { label: "Cover Image URL", name: image, widget: string,   hint: "Paste an image URL or leave blank", required: false }
+              - { label: "Featured",    name: featured,  widget: boolean,  default: false,  hint: "Show as featured article on insights page" }
+              - { label: "Published",   name: published, widget: boolean,  default: true }
+
+  # ── TEAM ──────────────────────────────────────────────────────────────────
+  # Writes directly to data/team.json so team.html reads it automatically.
+  - name: "team"
+    label: "Team Members"
+    files:
+      - label: "All Team Members"
+        name: "team"
+        file: "data/team.json"
+        fields:
+          - label: "Members"
+            name: "members"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.role}}"
+            fields:
+              - { label: "Name",         name: name,  widget: string }
+              - { label: "Role / Title", name: role,  widget: string }
+              - { label: "Practice Area", name: area, widget: string }
+              - { label: "Bio",          name: bio,   widget: text }
+              - { label: "Photo URL",    name: photo, widget: string, hint: "Paste image URL or upload path e.g. /assets/images/victor.jpg" }
+              - { label: "LinkedIn URL", name: linkedin, widget: string, required: false }
+              - { label: "Visible",      name: visible, widget: boolean, default: true }
