@@ -2,7 +2,7 @@
 title: "Wrongful Dismissal in Kenya: When Your Employer Breaks the Law"
 excerpt: "Losing your job is devastating enough — losing it unlawfully is worse. Kenyan employment law gives you strong protections. Here is exactly what constitutes wrongful dismissal and how to claim your rights."
 category: Employment Law
-author: Victor Muatine
+author: Advocate Mugumya
 date: 2026-02-20
 readTime: 5 min read
 featured: false
@@ -42,4 +42,4 @@ If you have been wrongfully dismissed, you can file a claim at the **Employment 
 
 You have **3 years** from the date of dismissal to file your claim. Do not delay — evidence becomes harder to gather and witnesses harder to find.
 
-Contact Victor Muatine & Co. for a free initial assessment of your wrongful dismissal claim.
+Contact Mugumya & Co Advocates for a free initial assessment of your wrongful dismissal claim.

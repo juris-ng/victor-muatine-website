@@ -1,6 +1,6 @@
-/* ============================================
+﻿/* ============================================
    ANIMATIONS.JS — Counters + Scroll Reveals
-   Victor Muatine & Co. Advocates
+   Mugumya & Co Advocates
    ============================================ */
 
 // --- ANIMATED STAT COUNTERS ---

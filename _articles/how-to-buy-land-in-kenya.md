@@ -3,7 +3,7 @@ title: "How to Safely Buy Land in Kenya: A Legal Guide"
 date: 2026-03-15
 excerpt: "Land fraud is one of Kenya's most common legal disputes. This guide walks you through the exact steps to verify title deeds and protect your investment."
 category: "Land & Property Law"
-author: "Victor Muatine"
+author: "Advocate Mugumya"
 readTime: "7 min read"
 featuredImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80"
 tags:
@@ -63,4 +63,4 @@ Only when the title is registered in your name is the transaction legally comple
 
 ---
 
-If you are considering purchasing land and need legal guidance, our team at Victor Muatine & Co. Advocates is experienced in all aspects of conveyancing and land law across Kenya.
+If you are considering purchasing land and need legal guidance, our team at Mugumya & Co Advocates is experienced in all aspects of conveyancing and land law across Kenya.

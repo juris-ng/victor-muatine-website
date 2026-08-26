@@ -2,7 +2,7 @@
 title: "Your Rights When the Police Stop You in Kenya"
 excerpt: "Article 49 of the Constitution gives every arrested person clear, enforceable rights. Most Kenyans do not know them — and the police know that. Here is what you are entitled to the moment you are detained."
 category: Constitutional Law
-author: Victor Muatine
+author: Advocate Mugumya
 date: 2026-01-10
 readTime: 4 min read
 featured: false

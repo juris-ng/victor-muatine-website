@@ -1,5 +1,5 @@
-/**
- * main.js — Victor Muatine & Co. Advocates
+﻿/**
+ * main.js — Mugumya & Co Advocates
  * Handles: theme toggle, navbar scroll shrink,
  *          mobile nav, scroll reveal animations
  */

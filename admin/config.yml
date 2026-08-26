@@ -48,7 +48,7 @@ collections:
       - label: "Author"
         name: "author"
         widget: "string"
-        default: "Victor Muatine"
+        default: "Advocate Mugumya"
 
       - label: "Publish Date"
         name: "date"
@@ -132,7 +132,7 @@ collections:
         name: "order"
         widget: "number"
         default: 99
-        hint: "Lower numbers appear first. Victor should be 1."
+        hint: "Lower numbers appear first. Mugumya should be 1."
 
       - label: "Layout"
         name: "layout"

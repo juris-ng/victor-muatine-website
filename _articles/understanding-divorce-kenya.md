@@ -2,7 +2,7 @@
 title: "Understanding Divorce in Kenya: What the Law Actually Says"
 excerpt: "Many Kenyans enter divorce proceedings without understanding their rights. Here is a clear breakdown of the legal process, grounds for divorce, and what to expect from Kenyan courts."
 category: Family Law
-author: Victor Muatine
+author: Advocate Mugumya
 date: 2026-03-15
 readTime: 6 min read
 featured: false

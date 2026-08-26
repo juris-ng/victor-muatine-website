@@ -1,7 +1,7 @@
-{
+﻿{
   "name": "effort-10---llp",
   "version": "1.0.0",
-  "description": "Victor Muatine & Co. Advocates — Law Firm Website",
+  "description": "Mugumya & Co Advocates — Law Firm Website",
   "main": "index.js",
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/juris-ng/victor-muatine-website.git"
+    "url": "git+https://github.com/juris-ng/mugumya-co-advocates-website.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/juris-ng/victor-muatine-website/issues"
+    "url": "https://github.com/juris-ng/mugumya-co-advocates-website/issues"
   },
-  "homepage": "https://github.com/juris-ng/victor-muatine-website#readme",
+  "homepage": "https://github.com/juris-ng/mugumya-co-advocates-website#readme",
   "dependencies": {
     "@11ty/eleventy": "^3.1.5",
     "luxon": "^3.7.2"

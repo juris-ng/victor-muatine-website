@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Homepage — highest priority -->
   <url>
-    <loc>https://victormuatine.co.ke/</loc>
+    <loc>/</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -11,7 +11,7 @@
 
   <!-- Contact — high priority (conversion page) -->
   <url>
-    <loc>https://victormuatine.co.ke/contact.html</loc>
+    <loc>/contact.html</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -19,7 +19,7 @@
 
   <!-- Practice Areas -->
   <url>
-    <loc>https://victormuatine.co.ke/practice-areas.html</loc>
+    <loc>/practice-areas.html</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -27,7 +27,7 @@
 
   <!-- Insights — updated frequently -->
   <url>
-    <loc>https://victormuatine.co.ke/insights.html</loc>
+    <loc>/insights.html</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -35,7 +35,7 @@
 
   <!-- About -->
   <url>
-    <loc>https://victormuatine.co.ke/about.html</loc>
+    <loc>/about.html</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -43,7 +43,7 @@
 
   <!-- Team -->
   <url>
-    <loc>https://victormuatine.co.ke/team.html</loc>
+    <loc>/team.html</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
