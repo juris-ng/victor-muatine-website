@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
@@ -505,10 +505,8 @@
                 <p>We typically respond within 2 business hours. All submissions are treated in strict confidence.</p>
               </div>
 
-              <!-- ✅ CHANGE 1: removed netlify attributes -->
-              <form id="contact-form" novalidate aria-label="Contact form">
-
-                <!-- ✅ CHANGE 2: removed hidden netlify inputs -->
+              <form id="contact-form" name="contact" data-netlify="true" novalidate aria-label="Contact form">
+                <input type="hidden" name="form-name" value="contact" />
 
                 <div class="form-row">
                   <div class="form-group">
