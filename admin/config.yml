@@ -1,0 +1,140 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Allows editorial workflow (Draft → Review → Published)
+publish_mode: editorial_workflow
+
+# Where uploaded images go
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+
+  # ── ARTICLES ─────────────────────────────────────────────
+  - name: "articles"
+    label: "Insights & Articles"
+    label_singular: "Article"
+    folder: "_articles"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "insights/{{slug}}/"
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        hint: "The article headline. Be specific — avoid generic titles."
+
+      - label: "Excerpt"
+        name: "excerpt"
+        widget: "text"
+        hint: "A 1-2 sentence summary shown on the Insights page. Max 200 characters."
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Constitutional Law"
+          - "Family Law"
+          - "Employment Law"
+          - "Commercial Law"
+          - "Criminal Law"
+          - "Property Law"
+          - "Construction Law"
+          - "Dispute Resolution"
+          - "Legal News"
+        hint: "Choose the most relevant category."
+
+      - label: "Author"
+        name: "author"
+        widget: "string"
+        default: "Advocate Mugumya"
+
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "DD MMMM YYYY"
+        time_format: false
+        hint: "The date this article goes live."
+
+      - label: "Read Time"
+        name: "readTime"
+        widget: "string"
+        default: "5 min read"
+        hint: "e.g. '4 min read' — estimate 200 words per minute."
+
+      - label: "Featured Article"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Toggle ON to show this article in the large featured slot on the Insights page. Only one article should be featured at a time."
+
+      - label: "Featured Image"
+        name: "featuredImage"
+        widget: "image"
+        required: false
+        hint: "Upload a cover image (recommended: 1200×800px, JPG or WebP)."
+
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "layouts/article.njk"
+
+      - label: "Article Body"
+        name: "body"
+        widget: "markdown"
+        hint: "Write the full article here. Use ## for section headings, **bold** for emphasis."
+
+  # ── TEAM MEMBERS ─────────────────────────────────────────
+  - name: "team"
+    label: "Team Members"
+    label_singular: "Team Member"
+    folder: "_team"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Full Name"
+        name: "title"
+        widget: "string"
+
+      - label: "Role / Position"
+        name: "role"
+        widget: "string"
+        hint: "e.g. 'Senior Associate' or 'Managing Partner'"
+
+      - label: "Photo"
+        name: "photo"
+        widget: "image"
+        required: false
+
+      - label: "Bio"
+        name: "body"
+        widget: "markdown"
+        hint: "Short professional biography."
+
+      - label: "Practice Areas"
+        name: "practiceAreas"
+        widget: "list"
+        hint: "List the areas this person specialises in."
+
+      - label: "Email"
+        name: "email"
+        widget: "string"
+        required: false
+
+      - label: "LinkedIn"
+        name: "linkedin"
+        widget: "string"
+        required: false
+
+      - label: "Display Order"
+        name: "order"
+        widget: "number"
+        default: 99
+        hint: "Lower numbers appear first. Mugumya should be 1."
+
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "layouts/team-member.njk"
