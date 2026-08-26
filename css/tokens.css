@@ -1,19 +1,15 @@
-﻿/*
+/*
  * tokens.css — Mugumya & Co Advocates
- * Art direction: Premium Kenyan law firm → authoritative, restrained, refined
- * Palette: Deep charcoal primary · gold accent · warm white surfaces
+ * Design system: Crisp white light theme matching the RM Law Firm Logo
+ * Palette: Pure White (#FFFFFF) · Amber Gold (#DA8A12) · Charcoal Slate (#1E232A) · Deep Slate (#0F172A)
  * Typography: Instrument Serif (display) + General Sans (body)
- * Density: Spacious — generous whitespace, editorial feel
  */
 
-/* ─────────────────────────────────────────────
-   FONT IMPORTS
-   ───────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 @import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
 
 /* ─────────────────────────────────────────────
-   LIGHT MODE (DEFAULT)
+   LIGHT MODE (DEFAULT PREFERRED THEME)
    ───────────────────────────────────────────── */
 :root,
 [data-theme="light"] {
@@ -65,150 +61,82 @@
   --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
   --transition-slow:        400ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* ── SURFACES — warm white, layered ── */
-  --color-bg:               #f8f7f3;
-  --color-surface:          #faf9f6;
-  --color-surface-2:        #fcfcf9;
-  --color-surface-offset:   #f1ede6;
-  --color-surface-offset-2: #ebe7df;
-  --color-surface-dynamic:  #e4e0d8;
-  --color-divider:          #dbd7cf;
-  --color-border:           #d2cec5;
+  /* ── SURFACES — Crisp Pure White & Light Offset ── */
+  --color-bg:               #ffffff;
+  --color-surface:          #ffffff;
+  --color-surface-2:        #f8fafc;
+  --color-surface-offset:   #f1f5f9;
+  --color-surface-offset-2: #e2e8f0;
+  --color-surface-dynamic:  #f8fafc;
+  --color-divider:          #e2e8f0;
+  --color-border:           #cbd5e1;
 
-  /* ── TEXT — warm charcoal ── */
-  --color-text:         #1a1916;
-  --color-text-muted:   #706d65;
-  --color-text-faint:   #b5b2ab;
-  --color-text-inverse: #f8f7f3;
+  /* ── TEXT — Deep Charcoal Slate ── */
+  --color-text:         #0f172a;
+  --color-text-muted:   #475569;
+  --color-text-faint:   #64748b;
+  --color-text-inverse: #ffffff;
 
-  /* ── PRIMARY — deep charcoal (navbar, hero bg) ── */
-  --color-primary:           #1a1916;
-  --color-primary-hover:     #2e2c28;
-  --color-primary-active:    #3f3c37;
-  --color-primary-highlight: #e4e0d8;
+  /* ── PRIMARY — Logo Charcoal (#1E232A) ── */
+  --color-primary:           #1e232a;
+  --color-primary-hover:     #2b2f38;
+  --color-primary-active:    #0f172a;
+  --color-primary-highlight: #f1f5f9;
 
-  /* ── ACCENT — gold (CTAs, highlights, borders) ── */
-  --color-accent:           #c9952a;
-  --color-accent-hover:     #b07d1f;
-  --color-accent-active:    #8f6315;
-  --color-accent-highlight: rgba(201, 149, 42, 0.12);
-  --color-accent-border:    rgba(201, 149, 42, 0.28);
+  /* ── ACCENT — Logo Warm Amber Gold (#DA8A12) ── */
+  --color-accent:           #da8a12;
+  --color-accent-hover:     #c2790e;
+  --color-accent-active:    #a36409;
+  --color-accent-highlight: rgba(218, 138, 18, 0.10);
+  --color-accent-border:    rgba(218, 138, 18, 0.25);
 
   /* ── SEMANTIC COLOURS ── */
-  --color-success:           #3a7a1e;
-  --color-success-highlight: #d2e8c8;
-  --color-warning:           #a05a10;
-  --color-warning-highlight: #f5e0c4;
-  --color-error:             #b02a2a;
-  --color-error-highlight:   #f5d0d0;
+  --color-success:           #15803d;
+  --color-success-highlight: #dcfce7;
+  --color-warning:           #b45309;
+  --color-warning-highlight: #fef3c7;
+  --color-error:             #b91c1c;
+  --color-error-highlight:   #fee2e2;
 
-  /* ── SHADOWS — warm-tinted ── */
-  --shadow-sm: 0 1px 2px oklch(0.18 0.01 75 / 0.06);
-  --shadow-md: 0 4px 12px oklch(0.18 0.01 75 / 0.09);
-  --shadow-lg: 0 12px 32px oklch(0.18 0.01 75 / 0.13);
-  --shadow-xl: 0 24px 56px oklch(0.18 0.01 75 / 0.16);
+  /* ── SHADOWS — Clean Airy Elevation ── */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.07);
+  --shadow-lg: 0 12px 30px rgba(15, 23, 42, 0.09);
+  --shadow-xl: 0 20px 48px rgba(15, 23, 42, 0.12);
 
   /* ── NAVBAR ── */
-  --navbar-height: 68px;
-  --navbar-bg:     rgba(26, 25, 22, 0.97);
+  --navbar-height: 76px;
+  --navbar-bg:     rgba(255, 255, 255, 0.96);
 
   /* ── OVERLAY ── */
-  --color-overlay: oklch(0.12 0.01 75 / 0.55);
+  --color-overlay: rgba(15, 23, 42, 0.5);
 }
 
-/* ─────────────────────────────────────────────
-   DARK MODE
-   ───────────────────────────────────────────── */
-[data-theme="dark"] {
-
-  /* SURFACES — dark warm */
-  --color-bg:               #131210;
-  --color-surface:          #1a1916;
-  --color-surface-2:        #1f1e1b;
-  --color-surface-offset:   #242320;
-  --color-surface-offset-2: #2a2927;
-  --color-surface-dynamic:  #32302d;
-  --color-divider:          #2d2c29;
-  --color-border:           #3a3835;
-
-  /* TEXT */
-  --color-text:         #e8e5de;
-  --color-text-muted:   #8a8780;
-  --color-text-faint:   #5a5955;
-  --color-text-inverse: #1a1916;
-
-  /* PRIMARY */
-  --color-primary:           #1a1916;
-  --color-primary-hover:     #2e2c28;
-  --color-primary-active:    #3f3c37;
-  --color-primary-highlight: #2d2c29;
-
-  /* ACCENT — slightly brighter gold in dark */
-  --color-accent:           #d4a03a;
-  --color-accent-hover:     #e8b44a;
-  --color-accent-active:    #f5c85a;
-  --color-accent-highlight: rgba(212, 160, 58, 0.14);
-  --color-accent-border:    rgba(212, 160, 58, 0.30);
-
-  /* SEMANTIC */
-  --color-success:           #5aa535;
-  --color-success-highlight: #253d1a;
-  --color-warning:           #d4820f;
-  --color-warning-highlight: #3d2c10;
-  --color-error:             #e05050;
-  --color-error-highlight:   #3d1c1c;
-
-  /* SHADOWS — deeper on dark */
-  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.22);
-  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.32);
-  --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.42);
-  --shadow-xl: 0 24px 56px oklch(0 0 0 / 0.52);
-
-  /* NAVBAR */
-  --navbar-bg: rgba(19, 18, 16, 0.97);
-
-  /* OVERLAY */
-  --color-overlay: oklch(0.05 0 0 / 0.65);
-}
-
-/* ─────────────────────────────────────────────
-   SYSTEM PREFERENCE FALLBACK
-   (users who haven't toggled manually)
-   ───────────────────────────────────────────── */
+/* Force light mode default for all devices */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --color-bg:               #131210;
-    --color-surface:          #1a1916;
-    --color-surface-2:        #1f1e1b;
-    --color-surface-offset:   #242320;
-    --color-surface-offset-2: #2a2927;
-    --color-surface-dynamic:  #32302d;
-    --color-divider:          #2d2c29;
-    --color-border:           #3a3835;
-    --color-text:             #e8e5de;
-    --color-text-muted:       #8a8780;
-    --color-text-faint:       #5a5955;
-    --color-text-inverse:     #1a1916;
-    --color-primary:          #1a1916;
-    --color-primary-hover:    #2e2c28;
-    --color-primary-active:   #3f3c37;
-    --color-primary-highlight:#2d2c29;
-    --color-accent:           #d4a03a;
-    --color-accent-hover:     #e8b44a;
-    --color-accent-active:    #f5c85a;
-    --color-accent-highlight: rgba(212, 160, 58, 0.14);
-    --color-accent-border:    rgba(212, 160, 58, 0.30);
-    --color-success:          #5aa535;
-    --color-success-highlight:#253d1a;
-    --color-warning:          #d4820f;
-    --color-warning-highlight:#3d2c10;
-    --color-error:            #e05050;
-    --color-error-highlight:  #3d1c1c;
-    --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.22);
-    --shadow-md: 0 4px 12px oklch(0 0 0 / 0.32);
-    --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.42);
-    --shadow-xl: 0 24px 56px oklch(0 0 0 / 0.52);
-    --navbar-bg: rgba(19, 18, 16, 0.97);
-    --color-overlay: oklch(0.05 0 0 / 0.65);
+  :root:not([data-theme="dark"]) {
+    --color-bg:               #ffffff;
+    --color-surface:          #ffffff;
+    --color-surface-2:        #f8fafc;
+    --color-surface-offset:   #f1f5f9;
+    --color-surface-offset-2: #e2e8f0;
+    --color-surface-dynamic:  #f8fafc;
+    --color-divider:          #e2e8f0;
+    --color-border:           #cbd5e1;
+    --color-text:             #0f172a;
+    --color-text-muted:       #475569;
+    --color-text-faint:       #64748b;
+    --color-text-inverse:     #ffffff;
+    --color-primary:          #1e232a;
+    --color-primary-hover:    #2b2f38;
+    --color-primary-active:   #0f172a;
+    --color-primary-highlight:#f1f5f9;
+    --color-accent:           #da8a12;
+    --color-accent-hover:     #c2790e;
+    --color-accent-active:    #a36409;
+    --color-accent-highlight: rgba(218, 138, 18, 0.10);
+    --color-accent-border:    rgba(218, 138, 18, 0.25);
+    --navbar-bg: rgba(255, 255, 255, 0.96);
+    --color-overlay: rgba(15, 23, 42, 0.5);
   }
 }

@@ -1,6 +1,6 @@
-﻿/*
+/*
  * style.css — Mugumya & Co Advocates
- * Shared components: navbar, footer, buttons, section labels,
+ * Light theme components: navbar, footer, buttons, section labels,
  * mobile nav, hamburger, container, scroll reveal, theme toggle
  * Depends on: tokens.css, base.css
  */
@@ -67,36 +67,37 @@
 .btn-accent {
   background: var(--color-accent);
   border-color: var(--color-accent);
-  color: #fff;
+  color: #ffffff;
 }
 .btn-primary:hover,
 .btn-accent:hover {
   background: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
-  color: #fff;
-  box-shadow: 0 4px 16px color-mix(in oklch, var(--color-accent) 40%, transparent);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(218, 138, 18, 0.3);
 }
 
-/* Ghost — transparent with gold border */
+/* Ghost — light surface with gold/slate border */
 .btn-ghost {
-  background: transparent;
+  background: #ffffff;
   border-color: var(--color-border);
   color: var(--color-text);
 }
 .btn-ghost:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
+  background: var(--color-surface-2);
 }
 
-/* Light — for dark section backgrounds */
+/* Light button */
 .btn-light {
-  background: rgba(255, 255, 255, 0.10);
-  border-color: rgba(255, 255, 255, 0.25);
-  color: #fff;
+  background: var(--color-surface-offset);
+  border-color: var(--color-border);
+  color: var(--color-text);
 }
 .btn-light:hover {
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
+  background: var(--color-surface-offset-2);
+  color: var(--color-text);
 }
 
 /* Large modifier */
@@ -106,7 +107,7 @@
 }
 
 /* ─────────────────────────────────────────────
-   NAVBAR
+   NAVBAR — Crisp Light Surface
    ───────────────────────────────────────────── */
 .navbar {
   position: fixed;
@@ -118,12 +119,12 @@
   background: var(--navbar-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--color-border);
   transition: box-shadow var(--transition-slow);
 }
 
 .navbar.scrolled {
-  box-shadow: 0 2px 20px oklch(0 0 0 / 0.35);
+  box-shadow: var(--shadow-md);
 }
 
 .navbar__inner {
@@ -131,15 +132,46 @@
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  gap: var(--space-8);
+  gap: var(--space-6);
 }
 
-/* Logo */
+/* Logo & Brand container */
 .navbar__logo {
   flex-shrink: 0;
-  color: #fff;
+  color: var(--color-text);
   display: flex;
   align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+.brand-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.brand-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
 }
 
 /* Nav links */
@@ -152,11 +184,11 @@
 
 .navbar__links a {
   font-size: var(--text-sm);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.70);
+  font-weight: 600;
+  color: var(--color-text-muted);
   letter-spacing: 0.01em;
   padding-block: var(--space-1);
-  border-bottom: 1.5px solid transparent;
+  border-bottom: 2px solid transparent;
   transition:
     color var(--transition-interactive),
     border-color var(--transition-interactive);
@@ -164,7 +196,7 @@
 
 .navbar__links a:hover,
 .navbar__links a[aria-current="page"] {
-  color: #fff;
+  color: var(--color-text);
 }
 
 .navbar__links a[aria-current="page"] {
@@ -185,12 +217,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: var(--radius-full);
-  color: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: none;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   cursor: pointer;
   flex-shrink: 0;
   transition:
@@ -200,9 +232,9 @@
 }
 
 .theme-toggle:hover {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.30);
-  background: rgba(255, 255, 255, 0.07);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: var(--color-surface-offset);
 }
 
 /* Hamburger — mobile only */
@@ -212,18 +244,20 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   cursor: pointer;
   padding: var(--space-2);
   border-radius: var(--radius-sm);
+  background: var(--color-surface-offset);
+  border: 1px solid var(--color-border);
 }
 
 .hamburger span {
   display: block;
   width: 20px;
-  height: 1.5px;
-  background: rgba(255, 255, 255, 0.80);
+  height: 2px;
+  background: var(--color-text);
   border-radius: 2px;
   transform-origin: center;
   transition:
@@ -233,25 +267,25 @@
 }
 
 .hamburger[aria-expanded="true"] span:nth-child(1) {
-  transform: translateY(6.5px) rotate(45deg);
+  transform: translateY(7px) rotate(45deg);
 }
 .hamburger[aria-expanded="true"] span:nth-child(2) {
   opacity: 0;
   width: 0;
 }
 .hamburger[aria-expanded="true"] span:nth-child(3) {
-  transform: translateY(-6.5px) rotate(-45deg);
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* ─────────────────────────────────────────────
-   MOBILE NAV OVERLAY
+   MOBILE NAV OVERLAY — Light Theme
    ───────────────────────────────────────────── */
 .mobile-nav {
   position: fixed;
   inset: 0;
   top: var(--navbar-height);
   z-index: 99;
-  background: var(--color-primary);
+  background: var(--color-bg);
   display: flex;
   flex-direction: column;
   padding: var(--space-8) var(--space-6);
@@ -267,10 +301,10 @@
 
 .mobile-nav a {
   font-size: var(--text-lg);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.75);
+  font-weight: 600;
+  color: var(--color-text);
   padding: var(--space-3) 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid var(--color-border);
   transition: color var(--transition-interactive);
 }
 
@@ -280,11 +314,12 @@
 }
 
 /* ─────────────────────────────────────────────
-   FOOTER
+   FOOTER — Refined Light Surface
    ───────────────────────────────────────────── */
 .footer {
-  background: var(--color-primary);
-  color: rgba(255, 255, 255, 0.65);
+  background: var(--color-surface-offset);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
   padding-top: clamp(var(--space-16), 8vw, var(--space-24));
   padding-bottom: var(--space-8);
 }
@@ -294,7 +329,7 @@
   grid-template-columns: 2.5fr 1fr 1fr 1.5fr;
   gap: var(--space-10);
   padding-bottom: var(--space-12);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--color-divider);
 }
 
 /* Brand column */
@@ -304,9 +339,21 @@
   gap: var(--space-5);
 }
 
+.footer__brand-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.footer__logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+}
+
 .footer__brand p {
   font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.50);
+  color: var(--color-text-muted);
   line-height: 1.75;
   max-width: 38ch;
 }
@@ -315,7 +362,7 @@
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
   color: var(--color-accent);
-  font-weight: 500;
+  font-weight: 700;
 }
 
 /* Link columns */
@@ -325,7 +372,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--color-text-faint);
   margin-bottom: var(--space-5);
 }
 
@@ -338,7 +385,7 @@
 
 .footer__col a {
   font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--color-text-muted);
   transition: color var(--transition-interactive);
 }
 
@@ -352,7 +399,7 @@
   align-items: flex-start;
   gap: var(--space-3);
   font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--color-text-muted);
   margin-bottom: var(--space-4);
 }
 
@@ -374,7 +421,7 @@
 
 .footer__copy {
   font-size: var(--text-xs);
-  color: rgba(255, 255, 255, 0.30);
+  color: var(--color-text-faint);
   max-width: 100%;
 }
 
@@ -384,7 +431,7 @@
 }
 
 .footer__socials a {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--color-text-muted);
   transition: color var(--transition-interactive);
   display: flex;
   align-items: center;
@@ -426,7 +473,6 @@ body {
   padding-top: var(--navbar-height);
 }
 
-/* First section that sits directly under navbar needs no extra padding-top */
 body > main > section:first-child {
   padding-top: 0;
 }
@@ -435,17 +481,15 @@ body > main > section:first-child {
    RESPONSIVE BREAKPOINTS
    ───────────────────────────────────────────── */
 
-/* Tablet & below: show hamburger, hide nav links */
 @media (max-width: 900px) {
   .navbar__links { display: none; }
   .hamburger     { display: flex; }
 
   .navbar__actions .btn {
-    display: none; /* hide CTA button on mobile, keep theme toggle */
+    display: none;
   }
 }
 
-/* Mobile */
 @media (max-width: 600px) {
   .footer__grid {
     grid-template-columns: 1fr;
@@ -458,7 +502,6 @@ body > main > section:first-child {
   }
 }
 
-/* Tablet footer */
 @media (max-width: 900px) and (min-width: 601px) {
   .footer__grid {
     grid-template-columns: 1fr 1fr;

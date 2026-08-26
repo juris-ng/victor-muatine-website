@@ -1,4 +1,4 @@
-﻿/**
+/**
  * main.js — Mugumya & Co Advocates
  * Handles: theme toggle, navbar scroll shrink,
  *          mobile nav, scroll reveal animations
@@ -15,8 +15,7 @@
   const root = document.documentElement;
 
   // Detect system preference
-  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  let currentTheme = systemDark ? 'dark' : 'light';
+  let currentTheme = 'light';
 
   // Apply initial theme
   root.setAttribute('data-theme', currentTheme);
